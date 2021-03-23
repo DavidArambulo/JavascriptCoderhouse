@@ -11,11 +11,10 @@ let apellido = prompt('Ingrese su apellido')
 let anioNacimiento = prompt('Ingrese su año de nacimiento')
 anioNacimiento = parseInt(anioNacimiento)
 
-let anioActual = prompt('Ingrese el año actual')
-anioActual = parseInt(anioActual)
+const currentYear = new Date().getFullYear()
 
 //Calculo la edad a cumplir
-let edad = anioActual - anioNacimiento
+let edad = currentYear - anioNacimiento
 
 //Muestro el resultado
 alert(nombre + ' ' + apellido + ' este año cumpliras ' + edad + ' años')
