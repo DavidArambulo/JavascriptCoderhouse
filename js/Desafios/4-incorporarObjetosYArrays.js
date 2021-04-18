@@ -11,6 +11,7 @@ class Producto {
     }
     consultaStock(numero){
         if (this.stock < numero) {
+            alert(`No hay stock suficiente de ${this.nombre}`);
             throw new Error(`No hay stock suficiente de ${this.nombre}`);
         }
     }
@@ -122,6 +123,10 @@ if (inputProducto !== 0) {
         console.log(carrito.productos)
         inputProducto = pedirDato()
         inputProducto = validarDato(inputProducto)
+    }
+
+    for (let i = 0; i < carrito.productos.length; i++) {
+        carrito.productos[i][0].consultaStock(carrito.productos[i][1])
     }
 
     // Pido un cupon de descuento y valido que exista
