@@ -56,6 +56,8 @@ let totalJeans = 0
 let totalBermudas = 0
 let totalGorras = 0
 
+// Funcion para contar los elementos presentes en el carrito de compras
+// Aplicar corte de control
 function contarProductos(){
     for(let i = 0; i < carrito.length; i++){
         if (carrito[i].nombre === 'campera') {
@@ -100,31 +102,6 @@ function guardarCarrito(){
     localStorage.setItem('carrito',JSON.stringify(carrito))
 }
 
-// Función para sumar al carrito de compras el precio de un producto y en caso de ser necesario vaciarlo
-// Buscar una forma de hacer que la funcion sea escalable a muchos mas productos
-function sumarAlCarrito(camperas, remeras, jeans, bermudas, gorras) {
-    for (let i = 0; i < camperas; i++){
-        agregarProducto(campera)
-        costo += campera.precio
-    }
-    for (let i = 0; i < remeras; i++){
-        agregarProducto(remera)
-        costo += remera.precio
-    }
-    for (let i = 0; i < jeans; i++){
-        agregarProducto(jean)
-        costo += jean.precio
-    }
-    for (let i = 0; i < bermudas; i++){
-        agregarProducto(bermuda)
-        costo += bermuda.precio
-    }
-    for (let i = 0; i < gorras; i++){
-        agregarProducto(gorra)
-        costo += gorra.precio
-    }
-}
-
 calcularCosto()
 contarProductos()
 
@@ -134,6 +111,62 @@ const cantRemera = document.getElementById('cantidad-remera')
 const cantJean = document.getElementById('cantidad-jean')
 const cantBermuda = document.getElementById('cantidad-bermuda')
 const cantGorra = document.getElementById('cantidad-gorra')
+const listaCarrito = document.getElementById('carrito')
+const inputCupon = document.getElementById('input-cupon')
+
+// Función para sumar al carrito de compras el precio de un producto y en caso de ser necesario vaciarlo
+// Buscar una forma de hacer que la funcion sea escalable a muchos mas productos
+function sumarAlCarrito(camperas, remeras, jeans, bermudas, gorras) {
+    for (let i = 0; i < camperas; i++){
+        agregarProducto(campera)
+        costo += campera.precio
+        let itemCarrito = document.createElement('li')
+        itemCarrito.textContent = `Producto: ${campera.nombre} Precio: ${campera.precio}`
+        listaCarrito.appendChild(itemCarrito)
+    }
+    for (let i = 0; i < remeras; i++){
+        agregarProducto(remera)
+        costo += remera.precio
+        let itemCarrito = document.createElement('li')
+        itemCarrito.textContent = `Producto: ${remera.nombre} Precio: ${remera.precio}`
+        listaCarrito.appendChild(itemCarrito)
+    }
+    for (let i = 0; i < jeans; i++){
+        agregarProducto(jean)
+        costo += jean.precio
+        let itemCarrito = document.createElement('li')
+        itemCarrito.textContent = `Producto: ${jean.nombre} Precio: ${jean.precio}`
+        listaCarrito.appendChild(itemCarrito)
+    }
+    for (let i = 0; i < bermudas; i++){
+        agregarProducto(bermuda)
+        costo += bermuda.precio
+        let itemCarrito = document.createElement('li')
+        itemCarrito.textContent = `Producto: ${bermuda.nombre} Precio: ${bermuda.precio}`
+        listaCarrito.appendChild(itemCarrito)
+    }
+    for (let i = 0; i < gorras; i++){
+        agregarProducto(gorra)
+        costo += gorra.precio
+        let itemCarrito = document.createElement('li')
+        itemCarrito.textContent = `Producto: ${gorra.nombre} Precio: ${gorra.precio}`
+        listaCarrito.appendChild(itemCarrito)
+    }
+}
+
+// Funcion para mostrar los elementos del carrito
+// Aplicar corte de control
+function mostrarCarrito(){
+    for (let i = 0; i < carrito.length; i++){
+        let itemCarrito = document.createElement('li')
+        itemCarrito.textContent = `Producto: ${carrito[i].nombre} Precio: ${carrito[i].precio}`
+        listaCarrito.appendChild(itemCarrito)
+    }
+}
+
+mostrarCarrito()
+
+let descuentoAplicado = false
 
 formCatalogo.addEventListener('submit',(event) => {
     event.preventDefault()
@@ -143,6 +176,7 @@ formCatalogo.addEventListener('submit',(event) => {
     const jeans = cantJean.value
     const bermudas = cantBermuda.value
     const gorras = cantGorra.value
+    const cuponDescuento = inputCupon.value
 
     sumarAlCarrito(camperas, remeras, jeans, bermudas, gorras)
     totalCamperas += cantCampera
@@ -157,48 +191,17 @@ formCatalogo.addEventListener('submit',(event) => {
     cantJean.value = 0
     cantBermuda.value = 0
     cantGorra.value = 0
+
+    if (cuponDescuento.toUpperCase() === 'D3SAFIO10%' && !descuentoAplicado){
+        aplicarDescuento()
+    } else {
+        alert ('No se puede aplicar el cupón ingresado')
+    }
+
+    alert (`Su carrito de cuesta $${costo}`)
 })
 
 formCatalogo.addEventListener('reset',(event) => {
     event.preventDefault()
-
     vaciarCarrito()
 })
-
-// INICIO
-/*
-alert('¡BIENVENIDO!')
-
-// Pido el código de un producto (o comando) y lo valido
-let inputProducto = pedirDato()
-inputProducto = validarDato(inputProducto)
-
-// Creo el carrito de compras
-if (inputProducto !== 0) {
-    // Agrego al carrito de compras (o lo vacío), pido un nuevo dato y lo valido
-    while (inputProducto !== 0) {
-        sumarAlCarrito(inputProducto);
-        guardarCarrito()
-        //calcularCosto()
-        //console.log(costo) // Esta linea sirve para viualizar como va aumentando el costo del carrito
-        console.log(carrito)
-        inputProducto = pedirDato()
-        inputProducto = validarDato(inputProducto)
-    }
-    calcularCosto()
-
-    // Pido un cupon de descuento y valido que exista
-    let cuponDescuento = prompt ('Ingrese su cupón de descuento:')
-    cuponDescuento = cuponDescuento.toUpperCase()
-
-    if (cuponDescuento === 'D3SAFIO10%'){
-        aplicarDescuento()
-    } else {
-        alert ('El cupón ingresado no es válido')
-    }
-
-    // Muestro el todal del carrito de compras
-    alert (`Su carrito de cuesta $${costo}`)
-}
-*/
-//FIN
