@@ -11,9 +11,39 @@
     <h3>Desafio: Incorporar Objetos y Arrays; y Primera Entrega del Proyecto Final</h3>
     <p>
         Para este desafío, trate de simular un carrito de compras de e-Commerce. 
-        Además agregé la funcionalidad opcional de aplicar cupón de descuento. 
-        (El cupon de descuento es D3SAFIO10%, no necesariamente debe estar en mayusculas)
     </p>
-    <script src="js/Desafios/4-incorporarObjetosYArrays.js"></script>
+    <ul id="carrito"></ul>
+    <div>
+        <form id="catalogo">
+            <fieldset>
+                <img src="http://via.placeholder.com/300?text=Campera" alt="imagen de una Campera">
+                <label for="cantidad-campera">Cant.</label>
+                <input id="cantidad-campera" type="number" value="0" min="0" autocomplete="off">
+            </fieldset>
+            <fieldset>
+                <img src="http://via.placeholder.com/300?text=Remera" alt="imagen de una Remera">
+                <label for="cantidad-remera">Cant.</label>
+                <input id="cantidad-remera" type="number" value="0" min="0" autocomplete="off">
+            </fieldset>
+            <fieldset>
+                <img src="http://via.placeholder.com/300?text=Jean" alt="imagen de una Jean">
+                <label for="cantidad-jean">Cant.</label>
+                <input id="cantidad-jean" type="number" value="0" min="0" autocomplete="off">
+            </fieldset>
+            <fieldset>
+                <img src="http://via.placeholder.com/300?text=Bermuda" alt="imagen de una Bermuda">
+                <label for="cantidad-bermuda">Cant.</label>
+                <input id="cantidad-bermuda" type="number" value="0" min="0" autocomplete="off">
+            </fieldset>
+            <fieldset>
+                <img src="http://via.placeholder.com/300?text=Gorra" alt="imagen de una Gorra">
+                <label for="cantidad-gorra">Cant.</label>
+                <input id="cantidad-gorra" type="number" value="0" min="0" autocomplete="off">
+            </fieldset>
+            <input type="submit" value="Agregar al Carrito">
+            <input type="reset" value="Vaciar Carrito">
+        </form>
+    </div>
+    <script src="js/Desafios/5-incorporarConHTML.js"></script>
 </body>
 </html>
