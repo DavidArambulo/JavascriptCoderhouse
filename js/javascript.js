@@ -4,14 +4,10 @@ class Producto {
         this.precio = parseFloat(precio)
         this.id     = parseInt(id)
         this.stock  = true
+        this.cant   = 0
+        this.subtotal = 0
     }
 }
-
-/*const campera = new Producto('Campera', '4000', '1')
-const remera = new Producto('Remera', '2000', '2')
-const jean = new Producto('Jean', '3500', '3')
-const bermuda = new Producto('Bermuda', '3000', '4')
-const gorra = new Producto('Gorra', '2000', '5')*/
 
 let productos = []
 
@@ -21,7 +17,7 @@ function crearProducto(nombre, precio, id){
 }
 
 function buscarProductoId(id){
-    const productoABuscar = productos.find( id => producto.id === id)
+    const productoABuscar = productos.find( producto => producto.id === id)
 
     if (!productoABuscar){
         throw new Error (`No existe el producto de ${id}`)
@@ -42,61 +38,91 @@ if (!carrito){
     carrito = []
 }
 
-let costo = 0
-let totalCamperas = 0
-let totalRemeras = 0
-let totalJeans = 0
-let totalBermudas = 0
-let totalGorras = 0
-
-
-function agregarAlCarrito(idProducto, cantidad = 1){ // equivale a SumarAlCarrito
-    const productoAgregar = buscarProductoId(idProducto)
-    let enCarrito = false
-
-    for (let i = 0; i < carrito; i++) {
-        if (carrito[i].id === productoAgregar.id){
-            carrito[i].cant += cantidad
-            enCarrito = true
-        }
-    }
-
-    if (!enCarrito){
-        productoAgregar.cant = 1
-        carrito.push(producto)
-    }
-}
-
-function vaciarCarrito(){
-    carrito.splice(0,carrito.length)
-    costo = 0
-    localStorage.removeItem('carrito')
-}
-
-/*function calcularCosto(){
-    for(let i = 0; i < carrito.length; i++){
-        costo += carrito[i].precio
-    }
-}*/
-
-function aplicarDescuento(){
-    costo -= costo * 0.1
-}
+let subtotal = 0
+let descuento = 0
+let total = 0
+let cuponDescuentoAplicado = false
 
 function guardarCarrito(){
     localStorage.setItem('carrito',JSON.stringify(carrito))
 }
 
-//calcularCosto()
-//contarProductos()
+function calcularSubtotalProducto(producto){
+    producto.subtotal = producto.cant * producto.precio
+}
+
+function calcularSubtotal(){
+    subtotal = 0
+    for (let i = 0; i < carrito.length; i++){
+        subtotal += carrito[i].subtotal
+    }
+}
+
+function calcularDescuento(){
+    descuento = subtotal * 0.1
+}
+
+function validarCupon(cupon){
+    if (cupon.toUpperCase() === 'D3SAFIO10%' && !cuponDescuentoAplicado){
+        cuponDescuentoAplicado = true
+    } else {
+        alert ('No se puede aplicar el cupón ingresado')
+    }
+}
+
+function calcularTotal(){
+    if (cuponDescuentoAplicado){
+        calcularDescuento()
+        total = subtotal - descuento
+    } else{
+        total = subtotal
+    }
+}
+
+function actualizarTotales(){
+    calcularSubtotal()
+    calcularTotal()
+}
+
+function agregarAlCarrito(idProducto, cantidad){ // equivale a SumarAlCarrito
+    const productoAgregar = buscarProductoId(idProducto)
+    let enCarrito = false
+    if (cantidad !== 0){
+        for (let i = 0; i < carrito.length; i++) {
+            if (carrito[i].id === productoAgregar.id){
+                carrito[i].cant += cantidad
+                calcularSubtotalProducto(carrito[i])
+                guardarCarrito()
+                actualizarTotales()
+                enCarrito = true
+            }
+        }
+        if (!enCarrito){
+            productoAgregar.cant += cantidad
+            carrito.push(productoAgregar)
+            const iUltimoProducto = carrito.length-1
+            calcularSubtotalProducto(carrito[iUltimoProducto])
+            guardarCarrito()
+            actualizarTotales()
+        }
+    }
+}
+
+function vaciarCarrito(){
+    for (let i = 0; i < carrito.length; i++){
+        carrito[i].cant = 0
+        carrito[i].subtotal = 0
+    }
+    carrito.splice(0,carrito.length)
+    actualizarTotales()
+    localStorage.removeItem('carrito')
+}
 
 // Se utiliza la notacion [elemento][id] 
 // donde: 
 // "elemento" esta relacionado a un producto;
 // y "id" es el id del producto
 // Ej: "cant0" es la cantidad de productos de id === 0
-
-//const formCatalogo = document.getElementById('catalogo')
 const cant1 = document.getElementById('cant1')
 const cant2 = document.getElementById('cant2')
 const cant3 = document.getElementById('cant3')
@@ -110,58 +136,85 @@ const btn5 = document.getElementById('btn5')
 const vaciar = document.getElementById('vaciar')
 const listaCarrito = document.getElementById('carrito')
 const inputCupon = document.getElementById('input-cupon')
+const btnValidarCupon = document.getElementById('btn-validar-cupon')
+const carritoHtml = document.getElementById('carrito')
+const totalesCarrito = document.getElementById('totales-carrito')
 
-// Función para sumar al carrito de compras el precio de un producto y en caso de ser necesario vaciarlo
-// Buscar una forma de hacer que la funcion sea escalable a muchos mas productos
-/*function sumarAlCarrito(camperas, remeras, jeans, bermudas, gorras) {
-    for (let i = 0; i < camperas; i++){
-        agregarProducto(campera)
-        costo += campera.precio
-        let itemCarrito = document.createElement('li')
-        itemCarrito.textContent = `Producto: ${campera.nombre} Precio: ${campera.precio}`
-        listaCarrito.appendChild(itemCarrito)
-    }
-    for (let i = 0; i < remeras; i++){
-        agregarProducto(remera)
-        costo += remera.precio
-        let itemCarrito = document.createElement('li')
-        itemCarrito.textContent = `Producto: ${remera.nombre} Precio: ${remera.precio}`
-        listaCarrito.appendChild(itemCarrito)
-    }
-    for (let i = 0; i < jeans; i++){
-        agregarProducto(jean)
-        costo += jean.precio
-        let itemCarrito = document.createElement('li')
-        itemCarrito.textContent = `Producto: ${jean.nombre} Precio: ${jean.precio}`
-        listaCarrito.appendChild(itemCarrito)
-    }
-    for (let i = 0; i < bermudas; i++){
-        agregarProducto(bermuda)
-        costo += bermuda.precio
-        let itemCarrito = document.createElement('li')
-        itemCarrito.textContent = `Producto: ${bermuda.nombre} Precio: ${bermuda.precio}`
-        listaCarrito.appendChild(itemCarrito)
-    }
-    for (let i = 0; i < gorras; i++){
-        agregarProducto(gorra)
-        costo += gorra.precio
-        let itemCarrito = document.createElement('li')
-        itemCarrito.textContent = `Producto: ${gorra.nombre} Precio: ${gorra.precio}`
-        listaCarrito.appendChild(itemCarrito)
-    }
-}*/
-
-// Funcion para mostrar los elementos del carrito
-// Aplicar corte de control
-/*function mostrarCarrito(){
+function actualizarCarrito(){
+    actualizarTotales()
+    carritoHtml.innerHTML = ''
     for (let i = 0; i < carrito.length; i++){
-        let itemCarrito = document.createElement('li')
-        itemCarrito.textContent = `Producto: ${carrito[i].nombre} Precio: ${carrito[i].precio}`
-        listaCarrito.appendChild(itemCarrito)
+        carritoHtml.innerHTML +=`
+        <li class="producto-carrito" id="${carrito[i].id}">
+            <ul class="datos">
+                <li class="nombre">${carrito[i].nombre}</li>
+                <li class="precio">${carrito[i].precio}</li>
+                <li class="cantidades">cant.: ${carrito[i].cant}</li>
+                <li class="subtotal-producto">Subtotal: ${carrito[i].subtotal}</li>
+                <li class="eliminar" onclick="removerDelCarrito(${carrito[i].id})"><button class="far fa-trash-alt"></button></li>
+            </ul>
+        </li>`
     }
-}*/
+    totalesCarrito.innerHTML = `
+    <li id="subtotal-carrito">Subtotal: $${subtotal}</li>
+    <li id="descuto-carrito">Descuento: -$${descuento}</li>
+    <li id="total-carrito">Total: $${total}</li>`
+}
 
-//mostrarCarrito()
+function removerDelCarrito(idProducto){
+    const index = carrito.findIndex(producto => producto.id === idProducto)
+    if (index >= 0){
+        carrito.splice(index,1)
+    }
+    guardarCarrito()
+    actualizarCarrito()
+}
 
-btn1.addEventListener('click', agregarAlCarrito(1,cant1))
-console.log(carrito)
+actualizarTotales()
+actualizarCarrito()
+
+btn1.addEventListener('click', (event) => {
+    event.preventDefault()
+    agregarAlCarrito(1,parseInt(cant1.value))
+    cant1.value = 0
+    actualizarCarrito()
+})
+btn2.addEventListener('click', (event) => {
+    event.preventDefault()
+    agregarAlCarrito(2,parseInt(cant2.value))
+    cant2.value = 0
+    actualizarCarrito()
+})
+btn3.addEventListener('click', (event) => {
+    event.preventDefault()
+    agregarAlCarrito(3,parseInt(cant3.value))
+    cant3.value = 0
+    actualizarCarrito()
+})
+btn4.addEventListener('click', (event) => {
+    event.preventDefault()
+    agregarAlCarrito(4,parseInt(cant4.value))
+    cant4.value = 0
+    actualizarCarrito()
+})
+btn5.addEventListener('click', (event) => {
+    event.preventDefault()
+    agregarAlCarrito(5,parseInt(cant5.value))
+    cant5.value = 0
+    actualizarCarrito()
+})
+
+vaciar.addEventListener('click',(event) => {
+    event.preventDefault()
+    vaciarCarrito()
+    actualizarCarrito()
+})
+
+btnValidarCupon.addEventListener('click',(event) => {
+    event.preventDefault()
+    const cupon = inputCupon.value
+    validarCupon(cupon)
+    actualizarCarrito()
+
+    inputCupon.value = ''
+})

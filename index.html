@@ -7,40 +7,41 @@
     <script src="https://kit.fontawesome.com/965dd3e5aa.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <h1>David Arambulo</h1>
-    <h2>Objetos y Arrays</h2>
-    <h3>Desafio: Incorporar Objetos y Arrays; y Primera Entrega del Proyecto Final</h3>
-    <p>
-        Para este desafío, trate de simular un carrito de compras de e-Commerce. 
-    </p>
+    <h1>De Ropa</h1>
+    <h2>Nuestros Productos</h2>
     <div>
         <form id="catalogo">
             <fieldset>
                 <img src="http://via.placeholder.com/300?text=Campera" alt="imagen de una Campera">
+                <h3>Campera</h3>
                 <label for="cant1">Cant.</label>
                 <input id="cant1" type="number" value="0" min="0" autocomplete="off">
                 <button id="btn1">Agregar al Carrito</button>
             </fieldset>
             <fieldset>
                 <img src="http://via.placeholder.com/300?text=Remera" alt="imagen de una Remera">
+                <h3>Remera</h3>
                 <label for="cant2">Cant.</label>
                 <input id="cant2" type="number" value="0" min="0" autocomplete="off">
                 <button id="btn2">Agregar al Carrito</button>
             </fieldset>
             <fieldset>
                 <img src="http://via.placeholder.com/300?text=Jean" alt="imagen de una Jean">
+                <h3>Jean</h3>
                 <label for="cant3">Cant.</label>
                 <input id="cant3" type="number" value="0" min="0" autocomplete="off">
                 <button id="btn3">Agregar al Carrito</button>
             </fieldset>
             <fieldset>
                 <img src="http://via.placeholder.com/300?text=Bermuda" alt="imagen de una Bermuda">
+                <h3>Bermuda</h3>
                 <label for="cant4">Cant.</label>
                 <input id="cant4" type="number" value="0" min="0" autocomplete="off">
                 <button id="btn4">Agregar al Carrito</button>
             </fieldset>
             <fieldset>
                 <img src="http://via.placeholder.com/300?text=Gorra" alt="imagen de una Gorra">
+                <h3>Gorra</h3>
                 <label for="cant5">Cant.</label>
                 <input id="cant5" type="number" value="0" min="0" autocomplete="off">
                 <button id="btn5">Agregar al Carrito</button>
@@ -48,11 +49,12 @@
         </form>
     </div>
     <div>
-        <ul id="carrito">
-            <li id="0">Nombre || Precio || Cant.: || Subtotal: <button class="far fa-trash-alt"></button></li>
-        </ul>
-        <span id="vaciar">Vaciar carrito</span>
-        <p id="costo-total"></p>
+        <ul id="carrito"></ul>
+        <button id="vaciar">Vaciar carrito</button>
+        <ul id="totales-carrito"></ul>
+        <label for="cupon">¿Tenés un cupón de descuento?</label>
+        <input id="input-cupon" type="text">
+        <button id="btn-validar-cupon">Validar Cupón</button>
         <button id="pagar-carrito">Pagar</button>
     </div>
     
