@@ -1,3 +1,4 @@
+// Creacion de la clase Producto y de una lista útil para la utilización de estos
 class Producto {
     constructor (nombre, precio, id){
         this.nombre = nombre.toLowerCase()
@@ -9,8 +10,10 @@ class Producto {
     }
 }
 
+
 let productos = []
 
+// Funciones relacionadas al array de productos
 function crearProducto(nombre, precio, id){
     const nuevoProducto = new Producto(nombre, precio, id)
     productos.push(nuevoProducto)
@@ -32,6 +35,7 @@ crearProducto('Jean', '3500', '3')
 crearProducto('Bermuda', '3000', '4')
 crearProducto('Gorra', '2000', '5')
 
+// Inicializacion de variables, constantes y listas necesarias
 let carrito = JSON.parse(localStorage.getItem('carrito'))
 
 if (!carrito){
@@ -43,10 +47,7 @@ let descuento = 0
 let total = 0
 let cuponDescuentoAplicado = false
 
-function guardarCarrito(){
-    localStorage.setItem('carrito',JSON.stringify(carrito))
-}
-
+// Funciones para realizar calculos de totales, descuentos y validaciones
 function calcularSubtotalProducto(producto){
     producto.subtotal = producto.cant * producto.precio
 }
@@ -84,7 +85,36 @@ function actualizarTotales(){
     calcularTotal()
 }
 
-function agregarAlCarrito(idProducto, cantidad){ // equivale a SumarAlCarrito
+// Constantes de escucha de elementos del html
+
+// Se utiliza la notacion [elemento][id] 
+// donde: 
+// "elemento" esta relacionado a un producto;
+// y "id" es el id del producto
+// Ej: "cant0" es la cantidad de productos de id === 0
+const cant1 = document.getElementById('cant1')
+const cant2 = document.getElementById('cant2')
+const cant3 = document.getElementById('cant3')
+const cant4 = document.getElementById('cant4')
+const cant5 = document.getElementById('cant5')
+const btn1 = document.getElementById('btn1')
+const btn2 = document.getElementById('btn2')
+const btn3 = document.getElementById('btn3')
+const btn4 = document.getElementById('btn4')
+const btn5 = document.getElementById('btn5')
+const vaciar = document.getElementById('vaciar')
+const listaCarrito = document.getElementById('carrito')
+const inputCupon = document.getElementById('input-cupon')
+const btnValidarCupon = document.getElementById('btn-validar-cupon')
+const carritoHtml = document.getElementById('carrito')
+const totalesCarrito = document.getElementById('totales-carrito')
+
+// Funciones para la manipulación del carrito de compras
+function guardarCarrito(){
+    localStorage.setItem('carrito',JSON.stringify(carrito))
+}
+
+function agregarAlCarrito(idProducto, cantidad){
     const productoAgregar = buscarProductoId(idProducto)
     let enCarrito = false
     if (cantidad !== 0){
@@ -117,28 +147,6 @@ function vaciarCarrito(){
     actualizarTotales()
     localStorage.removeItem('carrito')
 }
-
-// Se utiliza la notacion [elemento][id] 
-// donde: 
-// "elemento" esta relacionado a un producto;
-// y "id" es el id del producto
-// Ej: "cant0" es la cantidad de productos de id === 0
-const cant1 = document.getElementById('cant1')
-const cant2 = document.getElementById('cant2')
-const cant3 = document.getElementById('cant3')
-const cant4 = document.getElementById('cant4')
-const cant5 = document.getElementById('cant5')
-const btn1 = document.getElementById('btn1')
-const btn2 = document.getElementById('btn2')
-const btn3 = document.getElementById('btn3')
-const btn4 = document.getElementById('btn4')
-const btn5 = document.getElementById('btn5')
-const vaciar = document.getElementById('vaciar')
-const listaCarrito = document.getElementById('carrito')
-const inputCupon = document.getElementById('input-cupon')
-const btnValidarCupon = document.getElementById('btn-validar-cupon')
-const carritoHtml = document.getElementById('carrito')
-const totalesCarrito = document.getElementById('totales-carrito')
 
 function actualizarCarrito(){
     actualizarTotales()
@@ -173,6 +181,7 @@ function removerDelCarrito(idProducto){
 actualizarTotales()
 actualizarCarrito()
 
+// Eventos
 btn1.addEventListener('click', (event) => {
     event.preventDefault()
     agregarAlCarrito(1,parseInt(cant1.value))
