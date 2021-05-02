@@ -25,24 +25,6 @@ const jean = new Producto('Jean', '3500', '15');
 const bermuda = new Producto('Bermuda', '3000', '10');
 const gorra = new Producto('Gorra', '2000', '5');
 
-// Función que me permite pedir un producto o comando mediante prompt
-function pedirDato() {
-    let dato = prompt(
-        `Este es nuestro catalogo de productos: 0.- FIN; 1.- Camperas -> $${campera.precio}; 2.- Remeras -> $${remera.precio}; 3.- Jeans -> $${jean.precio}; 4.- Bermudas -> $${bermuda.precio}; 5.- Gorras -> $${gorra.precio}; 6.- VACIAR CARRITO; Ingrese el codigo del producto:`
-    )
-    dato = parseInt(dato)
-    return dato
-}
-
-// Función que me permite validar si el codigo del producto o comando existe y en caso de que no exista pedir uno nuevo
-function validarDato(dato) {
-    while (dato < 0 || dato > 6){
-        alert(`${dato} no corresponde a ningún producto del catalogo`)
-        dato = pedirDato();
-    }
-    return dato;
-}
-
 let carrito = JSON.parse(localStorage.getItem('carrito'))
 
 if (!carrito){
@@ -72,10 +54,6 @@ function contarProductos(){
             totalGorras++
         }
     }
-}
-
-function crearProducto(){
-    console.log(carrito)
 }
 
 function agregarProducto(producto){
