@@ -5,50 +5,80 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>De Ropa || Tu tienda favorita</title>
     <script src="https://kit.fontawesome.com/965dd3e5aa.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="estilos/estilos.css">
 </head>
 <body>
-    <h1>De Ropa</h1>
-    <h2>Nuestros Productos</h2>
-    <div>
-        <form id="catalogo">
-            <fieldset>
+    <header>
+        <nav class="contenedor nav">
+            <h1 class="logo"><a href="#"><img src="#" alt="DE ROPA"></a></h1>
+            <ul class="nav-list">
+                <li class="nav-link"><a href="#nosotros">Nosotros</a></li>
+                <li class="nav-link"><a href="#productos">Nuestros Productos</a></li>
+                <li class="nav-link"><a href="#retiro">Retiro</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section class="contenedor nosotros">
+        <h2 id="nosotros">Nosotros</h2>
+        <p>Somos tu tienda De Ropa. Para nosotros los clientes son nuestra prioridad y sin ustedes nuestros objetivos jamas prodian ser cumplidos.</p>
+        <h3>Nuestros objetivos</h3>
+        <ul class="objetivos">
+            <li class="objetivo">Crear ropa de la más alta calidad, apoyando una producción sustentable.</li>
+            <li class="objetivo">Lograr residuos textiles 0, en la industria de la moda Argentina.</li>
+            <li class="objetivo">Que vos te sientas comodx y hacerte lucir más cancherx.</li>
+        </ul>
+    </section>
+
+    <section class="contenedor retiro">
+        <h2 id="retiro">Como retirar mi compra</h2>
+        <ul>
+            <li class="detalle-retiro">En <strong>CABA</strong> el envio a domicilio es <strong>100% Gratuito</strong></li>
+            <li class="detalle-retiro">Si vivis en el Conourbano de la ciudad y tu compra supera los $5000 el envio corre por nuestra cuenta <strong>¡No pagas nada! ;)</strong></li>
+            <li class="detalle-retiro">En caso de que quieras retirar en nuestro local, puedes encontrarnos en: Cabildo 1234, 5to piso local Nº6</li>
+        </ul>
+    </section>
+    
+    <section class="contenedor catalogo">
+        <h2 id="productos">Nuestros productos</h2>
+        <ul id="catalogo">
+            <li class="producto1">
                 <img src="http://via.placeholder.com/300?text=Campera" alt="imagen de una Campera">
                 <h3>Campera</h3>
                 <label for="cant1">Cant.</label>
                 <input id="cant1" type="number" value="0" min="0" autocomplete="off">
                 <button id="btn1">Agregar al Carrito</button>
-            </fieldset>
-            <fieldset>
+            </li>
+            <li class="producto2">
                 <img src="http://via.placeholder.com/300?text=Remera" alt="imagen de una Remera">
                 <h3>Remera</h3>
                 <label for="cant2">Cant.</label>
                 <input id="cant2" type="number" value="0" min="0" autocomplete="off">
                 <button id="btn2">Agregar al Carrito</button>
-            </fieldset>
-            <fieldset>
+            </li>
+            <li class="producto3">
                 <img src="http://via.placeholder.com/300?text=Jean" alt="imagen de una Jean">
                 <h3>Jean</h3>
                 <label for="cant3">Cant.</label>
                 <input id="cant3" type="number" value="0" min="0" autocomplete="off">
                 <button id="btn3">Agregar al Carrito</button>
-            </fieldset>
-            <fieldset>
+            </li>
+            <li class="producto4">
                 <img src="http://via.placeholder.com/300?text=Bermuda" alt="imagen de una Bermuda">
                 <h3>Bermuda</h3>
                 <label for="cant4">Cant.</label>
                 <input id="cant4" type="number" value="0" min="0" autocomplete="off">
                 <button id="btn4">Agregar al Carrito</button>
-            </fieldset>
-            <fieldset>
+            </li>
+            <li class="producto5">
                 <img src="http://via.placeholder.com/300?text=Gorra" alt="imagen de una Gorra">
                 <h3>Gorra</h3>
                 <label for="cant5">Cant.</label>
                 <input id="cant5" type="number" value="0" min="0" autocomplete="off">
                 <button id="btn5">Agregar al Carrito</button>
-            </fieldset>
-        </form>
-    </div>
-    <div>
+            </li>
+        </ul>
+    </section>
+    <section class="carrito">
         <ul id="carrito"></ul>
         <button id="vaciar">Vaciar carrito</button>
         <ul id="totales-carrito"></ul>
@@ -56,8 +86,31 @@
         <input id="input-cupon" type="text">
         <button id="btn-validar-cupon">Validar Cupón</button>
         <button id="pagar-carrito">Pagar</button>
-    </div>
+    </section>
     
+    <footer>
+        <div class="contenedor informacion">
+            <div class="contacto">
+                <a href="#" class="logo"><img src="#" alt="DE ROPA"></a>
+                <ul class="lista-contacto">
+                    <h2>Contacto</h2>
+                    <li class="item-contacto">Celular</li>
+                    <li class="item-contacto">Direccion</li>
+                    <li class="item-contacto">Mail</li>
+                </ul>
+            </div>
+            <ul class="redes">
+                <li class="instagram"><a href="#"><i class="fab fa-instagram"></i></a></li>
+                <li class="facebook"><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+            </ul>
+        </div>
+        <p class="contenedor aclaracion"><em>(Todos los derechos estan reservados a sus respectivos autores. Este sitio tiene fin exclusivamente académico)</em></p>
+        <ul class="contenedor copyright">
+            <li class="item-derechos">&copy;COPYRIGHT 2021</li>
+            <li class="item-derechos">David Arambulo</li>
+            <li class="item-derechos"><a href="https://github.com/DavidArambulo">GitHub</a></li>
+        </ul>
+    </footer>
     <script src="js/javascript.js"></script>
 </body>
 </html>

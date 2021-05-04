@@ -1,0 +1,59 @@
+// HEADER
+header{
+    background-color: $colorBaseNegro;
+    .nav{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .logo{
+            margin: 0;
+            a{
+                font-size: $sizeLogo;
+            }
+        }
+        a{
+            color: $colorBaseBlanco;
+            font-family: $fuenteTitulos;
+            font-weight: 500;
+            font-size: 1.08rem;
+        }
+        .nav-list{
+            display: flex;
+            gap: $espacioTitulos;
+        }
+    }
+}
+
+// FOOTER
+footer{
+    .informacion, .copyright, .redes{
+        display: flex;
+        justify-content: space-between;
+    }
+    .informacion{
+        align-items: center;
+        .contacto{
+            display: flex;
+            gap: $espacioTitulos;
+            align-items: center;
+            h2{
+                margin: 0;
+            }
+            .logo{
+                display: inline-block;
+                margin: 0;
+                font-size: $sizeLogo;
+                font-family: $fuenteTitulos;
+                font-weight: 500;
+            }
+        }
+        .redes{
+            font-size: $sizeLogo;
+            gap: $espacioTitulos;
+        }
+    }
+    .aclaracion{
+        font-size: 0.85rem;
+        font-weight: 100;
+    }
+}

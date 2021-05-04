@@ -1,0 +1,41 @@
+// RESET
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+ul{
+    list-style: none;
+}
+
+body{
+    font-family: $fuenteTextos;
+    color: $colorBaseNegro;
+    background-color: $colorBaseBlanco;
+}
+
+h1, h2{
+    font-family: $fuenteTitulos;
+    margin-bottom: $espacioTitulos;
+}
+
+section{
+    margin-bottom: $espacioSeccion;
+}
+
+p, h3{
+    margin-bottom: $espacioParrafos;
+}
+
+a{
+    text-decoration: none;
+    color: $colorBaseNegro;
+}
+
+.contenedor{
+    width: 90%;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
