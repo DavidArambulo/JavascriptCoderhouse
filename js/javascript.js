@@ -154,6 +154,7 @@ function actualizarCarrito(){
     for (let i = 0; i < carrito.length; i++){
         carritoHtml.innerHTML +=`
         <li class="producto-carrito" id="${carrito[i].id}">
+        <img src="http://via.placeholder.com/100?text=${carrito[i].nombre}" alt="imagen de ${carrito[i].nombre}">
             <ul class="datos">
                 <li class="nombre">${carrito[i].nombre}</li>
                 <li class="precio">$${carrito[i].precio}</li>
@@ -165,8 +166,8 @@ function actualizarCarrito(){
     }
     totalesCarrito.innerHTML = `
     <li id="subtotal-carrito">Subtotal: $${subtotal}</li>
-    <li id="descuto-carrito">Descuento: -$${descuento}</li>
-    <li id="total-carrito">Total: $${total}</li>`
+    <li id="descuento-carrito"><em>Descuento: -$${descuento}</em></li>
+    <li id="total-carrito"><strong>Total: $${total}</strong></li>`
 }
 
 function removerDelCarrito(idProducto){

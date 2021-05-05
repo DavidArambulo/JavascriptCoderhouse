@@ -13,7 +13,7 @@
             <h1 class="logo"><a href="#"><img src="media/deropa-logo.png" class="img-logo" alt="DE ROPA"></a></h1>
             <ul class="nav-list">
                 <li class="nav-link"><a href="#nosotros">Nosotros</a></li>
-                <li class="nav-link"><a href="#productos">Nuestros Productos</a></li>
+                <li class="nav-link"><a href="#productos">Productos</a></li>
                 <li class="nav-link"><a href="#retiro">Retiro</a></li>
             </ul>
         </nav>
@@ -84,28 +84,21 @@
         </ul>
     </section>
 
-    <div class="burbuja-carrito">
-        <a href="#modal-carrito"><i class="fas fa-shopping-cart"></i></a>
-    </div>
+
+    <a href="#modal-carrito" class="burbuja abrir-carrito"><i class="fas fa-shopping-cart"></i></a>
     <section class="carrito" id="modal-carrito">
         <div class="contenido-modal">
-            <ul id="carrito">
-                <!--<li class="producto-carrito" id="1">
-                    <ul class="datos">
-                        <li class="nombre">campera</li>
-                        <li class="precio">4000</li>
-                        <li class="cantidades">cant.: 1</li>
-                        <li class="subtotal-producto">Subtotal: 4000</li>
-                        <li class="eliminar" onclick="removerDelCarrito(1)"><button class="far fa-trash-alt" aria-hidden="true"></button></li>
-                    </ul>
-                </li>-->
-            </ul>
+            <a href="#" class="burbuja cerrar-carrito"><i class="fas fa-times"></i></a>
+            <h2>Carrito</h2>
+            <ul id="carrito"></ul>
             <button id="vaciar">Vaciar carrito</button>
-            <ul id="totales-carrito"></ul>
-            <label for="cupon">¿Tenés un cupón de descuento?</label>
-            <input id="input-cupon" type="text">
-            <button id="btn-validar-cupon">Validar Cupón</button>
-            <button id="pagar-carrito">Pagar</button>
+            <div class="detalle">
+                <h3>Detalle de tu carrito</h3>
+                <ul id="totales-carrito"></ul><button id="pagar-carrito">Pagar</button>
+                <label class="cupon" for="input-cupon">¿Tenés un cupón de descuento?</label>
+                <input id="input-cupon" type="text">
+                <button id="btn-validar-cupon">Validar Cupón</button>
+            </div>
         </div>
     </section>
     
