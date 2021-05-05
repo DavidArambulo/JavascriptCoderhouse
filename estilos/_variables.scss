@@ -9,7 +9,7 @@ $colorCompClaro: #FFD9DA;
 $colorBaseNegro: #1B2021;
 $colorBaseGris: #30343F;
 $colorFondoModal:rgba(0, 0, 0, 0.85);
-$sombra: 0px 0px 15px 1px rgba(48,52,63,0.5);
+$sombra:  0 8px 32px 0 rgba(48, 52, 63, 0.369);//0px 0px 15px 1px rgba(48,52,63,0.5);
 
 //Fuentes
 $fuenteTitulos: 'Montserrat', sans-serif;
@@ -22,3 +22,12 @@ $sizeLogo: 2rem;
 $espacioSeccion: 2rem;
 $espacioTitulos: 1rem;
 $espacioParrafos: 0.5rem;
+$espacioParrafosReducido: 0.15rem;
+
+%fondoGlassmorph{
+    background: rgba( 255, 255, 255, 0.15 );
+    box-shadow: $sombra;
+    backdrop-filter: blur( 7.0px );
+    -webkit-backdrop-filter: blur( 7.0px );
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+}

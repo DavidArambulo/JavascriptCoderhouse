@@ -1,39 +1,50 @@
 // CARRITO DE COMPRAS
-.burbuja-carrito{
-    position: fixed;
-    bottom: 1rem;
-    right: 0.25rem;
-    background-color: $colorBaseNegro;
+.burbuja{
     padding: $espacioParrafos;
-    border-radius: 50%;
-    box-shadow: $sombra;
+    border-radius: 50px;
     z-index: 1;
-    a{
+    @extend %fondoGlassmorph;
+    position: fixed;
+    &.abrir-carrito{
+        bottom: 1rem;
+        right: 0.25rem;
         font-size: $sizeLogo;
-        color: #fff;
+    }
+    &.cerrar-carrito{
+        position: sticky;
+        top: 1rem;
+        font-size: 1rem;
+        margin-left: 95%;
     }
 }
 
 .carrito{
     max-height: 65vh;
-    background-color: $colorCompClaro;
+    width: 65%;
+    max-width: 800px;
     position: fixed;
     bottom: 0.75rem;
     right: 2rem;
     overflow: auto;
-    //box-shadow: $sombra;
+    display: none;
+    @extend %fondoGlassmorph;
+    &#modal-carrito:target{
+        display: block;
+    }
     .contenido-modal{
         width: 95%;
-        max-width: 800px;
         margin-left: auto;
         margin-right: auto;
         .producto-carrito{
             @include card(100%);
+            display: flex;
+            align-items: center;
             .datos{
                 width: 100%;
                 display: grid;
-                grid-template-columns: repeat(4, auto);
-                grid-template-rows: repeat(2, auto);
+                gap: $espacioParrafos;
+                grid-template-columns: 1fr 0.5fr 1fr 0.5fr;
+                grid-template-rows: repeat(2, 1fr);
                 grid-template-areas: 
                 "nombre cant sub eliminar"
                 "precio cant sub eliminar";
@@ -41,6 +52,7 @@
                 .nombre{
                     grid-area: nombre;
                     text-transform: capitalize;
+                    font-size: 1.2rem;
                     font-weight: 500;
                     padding-left: $espacioParrafos;
                 }
@@ -61,6 +73,33 @@
                     grid-area: eliminar;
                 }
             }
+        }
+        .detalle{
+            margin-top: $espacioTitulos;
+            @extend %fondoGlassmorph;
+            h3{
+                font-family: $fuenteTitulos;
+                font-size: 1.3rem;
+            }
+            #pagar-carrito{
+                display: block;
+                width: 100%;
+                padding: $espacioParrafosReducido;
+                margin-bottom: $espacioParrafos;
+            }
+            #subtotal-carrito, #total-carrito, #descuento-carrito{
+                margin-bottom: $espacioParrafosReducido;
+            }
+            #total-carrito{
+                font-size: 1.1rem;
+            }
+            #subtotal-carrito, #descuento-carrito{
+                font-size: 0.9rem;
+            }
+            #descuento-carrito, .cupon{
+                color: $colorBaseGris;
+            }
+            
         }
     }
     
