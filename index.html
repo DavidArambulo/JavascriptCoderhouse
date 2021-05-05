@@ -41,7 +41,7 @@
     <section class="contenedor catalogo">
         <h2 id="productos">Nuestros productos</h2>
         <ul id="catalogo">
-            <li class="producto1">
+            <li class="producto">
                 <img src="http://via.placeholder.com/300?text=Campera" alt="imagen de una Campera">
                 <h3>Campera</h3>
                 <p>$4000</p>
@@ -49,7 +49,7 @@
                 <input id="cant1" type="number" value="0" min="0" autocomplete="off">
                 <button id="btn1">Agregar al Carrito</button>
             </li>
-            <li class="producto2">
+            <li class="producto">
                 <img src="http://via.placeholder.com/300?text=Remera" alt="imagen de una Remera">
                 <h3>Remera</h3>
                 <p>$2000</p>
@@ -57,7 +57,7 @@
                 <input id="cant2" type="number" value="0" min="0" autocomplete="off">
                 <button id="btn2">Agregar al Carrito</button>
             </li>
-            <li class="producto3">
+            <li class="producto">
                 <img src="http://via.placeholder.com/300?text=Jean" alt="imagen de una Jean">
                 <h3>Jean</h3>
                 <p>$3500</p>
@@ -65,7 +65,7 @@
                 <input id="cant3" type="number" value="0" min="0" autocomplete="off">
                 <button id="btn3">Agregar al Carrito</button>
             </li>
-            <li class="producto4">
+            <li class="producto">
                 <img src="http://via.placeholder.com/300?text=Bermuda" alt="imagen de una Bermuda">
                 <h3>Bermuda</h3>
                 <p>$3000</p>
@@ -73,7 +73,7 @@
                 <input id="cant4" type="number" value="0" min="0" autocomplete="off">
                 <button id="btn4">Agregar al Carrito</button>
             </li>
-            <li class="producto5">
+            <li class="producto">
                 <img src="http://via.placeholder.com/300?text=Gorra" alt="imagen de una Gorra">
                 <h3>Gorra</h3>
                 <p>$2000</p>
@@ -83,14 +83,30 @@
             </li>
         </ul>
     </section>
-    <section class="carrito">
-        <ul id="carrito"></ul>
-        <button id="vaciar">Vaciar carrito</button>
-        <ul id="totales-carrito"></ul>
-        <label for="cupon">¿Tenés un cupón de descuento?</label>
-        <input id="input-cupon" type="text">
-        <button id="btn-validar-cupon">Validar Cupón</button>
-        <button id="pagar-carrito">Pagar</button>
+
+    <div class="burbuja-carrito">
+        <a href="#modal-carrito"><i class="fas fa-shopping-cart"></i></a>
+    </div>
+    <section class="carrito" id="modal-carrito">
+        <div class="contenido-modal">
+            <ul id="carrito">
+                <!--<li class="producto-carrito" id="1">
+                    <ul class="datos">
+                        <li class="nombre">campera</li>
+                        <li class="precio">4000</li>
+                        <li class="cantidades">cant.: 1</li>
+                        <li class="subtotal-producto">Subtotal: 4000</li>
+                        <li class="eliminar" onclick="removerDelCarrito(1)"><button class="far fa-trash-alt" aria-hidden="true"></button></li>
+                    </ul>
+                </li>-->
+            </ul>
+            <button id="vaciar">Vaciar carrito</button>
+            <ul id="totales-carrito"></ul>
+            <label for="cupon">¿Tenés un cupón de descuento?</label>
+            <input id="input-cupon" type="text">
+            <button id="btn-validar-cupon">Validar Cupón</button>
+            <button id="pagar-carrito">Pagar</button>
+        </div>
     </section>
     
     <footer>

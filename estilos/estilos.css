@@ -125,4 +125,97 @@ footer .aclaracion {
   font-size: 0.85rem;
   font-weight: 100;
 }
+
+.burbuja-carrito {
+  position: fixed;
+  bottom: 1rem;
+  right: 0.25rem;
+  background-color: #1B2021;
+  padding: 0.5rem;
+  border-radius: 50%;
+  -webkit-box-shadow: 0px 0px 15px 1px rgba(48, 52, 63, 0.5);
+          box-shadow: 0px 0px 15px 1px rgba(48, 52, 63, 0.5);
+  z-index: 1;
+}
+
+.burbuja-carrito a {
+  font-size: 2rem;
+  color: #fff;
+}
+
+.carrito {
+  max-height: 65vh;
+  background-color: #FFD9DA;
+  position: fixed;
+  bottom: 0.75rem;
+  right: 2rem;
+  overflow: auto;
+}
+
+.carrito .contenido-modal {
+  width: 95%;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.carrito .contenido-modal .producto-carrito {
+  width: 100%;
+  margin-bottom: 0.5rem;
+  -webkit-box-shadow: 0px 0px 15px 1px rgba(48, 52, 63, 0.5);
+          box-shadow: 0px 0px 15px 1px rgba(48, 52, 63, 0.5);
+  background-color: #fff;
+}
+
+.carrito .contenido-modal .producto-carrito .datos {
+  width: 100%;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (auto)[4];
+      grid-template-columns: repeat(4, auto);
+  -ms-grid-rows: (auto)[2];
+      grid-template-rows: repeat(2, auto);
+      grid-template-areas: "nombre cant sub eliminar" "precio cant sub eliminar";
+}
+
+.carrito .contenido-modal .producto-carrito .datos .nombre {
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+  grid-area: nombre;
+  text-transform: capitalize;
+  font-weight: 500;
+  padding-left: 0.5rem;
+}
+
+.carrito .contenido-modal .producto-carrito .datos .precio {
+  -ms-grid-row: 2;
+  -ms-grid-column: 1;
+  grid-area: precio;
+  padding-left: 0.5rem;
+}
+
+.carrito .contenido-modal .producto-carrito .datos .cantidades, .carrito .contenido-modal .producto-carrito .datos .subtotal-producto, .carrito .contenido-modal .producto-carrito .datos .eliminar {
+  margin: auto;
+}
+
+.carrito .contenido-modal .producto-carrito .datos .cantidades {
+  -ms-grid-row: 1;
+  -ms-grid-row-span: 2;
+  -ms-grid-column: 2;
+  grid-area: cant;
+}
+
+.carrito .contenido-modal .producto-carrito .datos .subtotal-producto {
+  -ms-grid-row: 1;
+  -ms-grid-row-span: 2;
+  -ms-grid-column: 3;
+  grid-area: sub;
+}
+
+.carrito .contenido-modal .producto-carrito .datos .eliminar {
+  -ms-grid-row: 1;
+  -ms-grid-row-span: 2;
+  -ms-grid-column: 4;
+  grid-area: eliminar;
+}
 /*# sourceMappingURL=estilos.css.map */

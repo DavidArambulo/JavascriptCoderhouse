@@ -156,7 +156,7 @@ function actualizarCarrito(){
         <li class="producto-carrito" id="${carrito[i].id}">
             <ul class="datos">
                 <li class="nombre">${carrito[i].nombre}</li>
-                <li class="precio">${carrito[i].precio}</li>
+                <li class="precio">$${carrito[i].precio}</li>
                 <li class="cantidades">cant.: ${carrito[i].cant}</li>
                 <li class="subtotal-producto">Subtotal: ${carrito[i].subtotal}</li>
                 <li class="eliminar" onclick="removerDelCarrito(${carrito[i].id})"><button class="far fa-trash-alt"></button></li>
