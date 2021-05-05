@@ -1,0 +1,21 @@
+.catalogo{
+    #catalogo{
+        display: flex;
+        flex-wrap: wrap;
+        .producto{
+            @include card (20%);
+            margin-right: 5%;
+            margin-bottom: $espacioSeccion;
+            img{
+                width: 100%;
+            }
+            .datos-producto{
+                padding: $espacioParrafos;
+                input, button{
+                    width: 100%;
+                }
+            }
+            
+        }
+    }
+}

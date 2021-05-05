@@ -276,4 +276,33 @@ footer .aclaracion {
 .carrito .contenido-modal .detalle #descuento-carrito, .carrito .contenido-modal .detalle .cupon {
   color: #30343F;
 }
+
+.catalogo #catalogo {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.catalogo #catalogo .producto {
+  width: 20%;
+  margin-bottom: 0.5rem;
+  background-color: #fff;
+  border: 1px solid rgba(48, 52, 64, 0.18);
+  margin-right: 5%;
+  margin-bottom: 2rem;
+}
+
+.catalogo #catalogo .producto img {
+  width: 100%;
+}
+
+.catalogo #catalogo .producto .datos-producto {
+  padding: 0.5rem;
+}
+
+.catalogo #catalogo .producto .datos-producto input, .catalogo #catalogo .producto .datos-producto button {
+  width: 100%;
+}
 /*# sourceMappingURL=estilos.css.map */
