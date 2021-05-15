@@ -10,7 +10,6 @@ class Producto {
     }
 }
 
-
 let productos = []
 
 // Funciones relacionadas al array de productos
@@ -34,6 +33,7 @@ crearProducto('Remera', '2000', '2')
 crearProducto('Jean', '3500', '3')
 crearProducto('Bermuda', '3000', '4')
 crearProducto('Gorra', '2000', '5')
+crearProducto('Bufanda', '2000', '6')
 mostrarProductos()
 
 // Inicializacion de variables, constantes y listas necesarias
@@ -93,18 +93,6 @@ function actualizarTotales(){
 // "elemento" esta relacionado a un producto;
 // y "id" es el id del producto
 // Ej: "cant0" es la cantidad de productos de id === 0
-
-// Costantes de a reducir
-const cant1 = document.getElementById('cant1')
-const cant2 = document.getElementById('cant2')
-const cant3 = document.getElementById('cant3')
-const cant4 = document.getElementById('cant4')
-const cant5 = document.getElementById('cant5')
-const btn1 = document.getElementById('btn1')
-const btn2 = document.getElementById('btn2')
-const btn3 = document.getElementById('btn3')
-const btn4 = document.getElementById('btn4')
-const btn5 = document.getElementById('btn5')
 
 const vaciar = document.getElementById('vaciar')
 const listaCarrito = document.getElementById('carrito')
@@ -184,6 +172,32 @@ function removerDelCarrito(idProducto){
     actualizarCarrito()
 }
 
+// Esta función permite no tener que crear los elementos del html a mano para cada producto
+function mostrarProductos(){
+    for (let i = 0 ; i < productos.length; i++){
+        
+        $('#catalogo').append(
+            `<li class="producto">
+                <img src="http://via.placeholder.com/300?text=${productos[i].nombre}" alt="imagen del producto ${productos[i].nombre}">
+                <div class="datos-producto">
+                    <h3 class="nombre-producto">${productos[i].nombre}</h3>
+                    <p class="precio-producto">$${productos[i].precio}</p>
+                    <!--<p class="cant${productos[i].id}">Cant.: ${productos[i].cant}</p>-->
+                    <label for="cant${productos[i].id}">Cant.</label>
+                    <input id="cant${productos[i].id}" type="number" value="0" min="0" autocomplete="off">
+                    <button id="btn${productos[i].id}">Agregar al Carrito</button>
+                </div>
+            </li>`
+        )
+
+        $(`#btn${productos[i].id}`).on('click', (event) => {
+            event.preventDefault()
+            agregarAlCarrito(parseInt(`${productos[i].id}`),parseInt($(`#cant${productos[i].id}`).val()))
+            actualizarCarrito()
+        })
+    }
+}
+
 actualizarTotales()
 actualizarCarrito()
 
@@ -218,27 +232,3 @@ function actualizarProductos(){
     }
 }
 */
-function mostrarProductos(){
-    for (let i = 0 ; i < productos.length; i++){
-        
-        $('#catalogo').append(
-            `<li class="producto">
-                <img src="http://via.placeholder.com/300?text=${productos[i].nombre}" alt="imagen del producto ${productos[i].nombre}">
-                <div class="datos-producto">
-                    <h3 class="nombre-producto">${productos[i].nombre}</h3>
-                    <p class="precio-producto">$${productos[i].precio}</p>
-                    <!--<p class="cant${productos[i].id}">Cant.: ${productos[i].cant}</p>-->
-                    <label for="cant${productos[i].id}">Cant.</label>
-                    <input id="cant${productos[i].id}" type="number" value="0" min="0" autocomplete="off">
-                    <button id="btn${productos[i].id}">Agregar al Carrito</button>
-                </div>
-            </li>`
-        )
-
-        $(`#btn${productos[i].id}`).on('click', (event) => {
-            event.preventDefault()
-            agregarAlCarrito(parseInt(`${productos[i].id}`),parseInt($(`#cant${productos[i].id}`).val()))
-            actualizarCarrito()
-        })
-    }
-}
