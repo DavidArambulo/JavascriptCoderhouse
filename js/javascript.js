@@ -34,6 +34,7 @@ crearProducto('Remera', '2000', '2')
 crearProducto('Jean', '3500', '3')
 crearProducto('Bermuda', '3000', '4')
 crearProducto('Gorra', '2000', '5')
+mostrarProductos()
 
 // Inicializacion de variables, constantes y listas necesarias
 let carrito = JSON.parse(localStorage.getItem('carrito'))
@@ -92,6 +93,8 @@ function actualizarTotales(){
 // "elemento" esta relacionado a un producto;
 // y "id" es el id del producto
 // Ej: "cant0" es la cantidad de productos de id === 0
+
+// Costantes de a reducir
 const cant1 = document.getElementById('cant1')
 const cant2 = document.getElementById('cant2')
 const cant3 = document.getElementById('cant3')
@@ -102,6 +105,7 @@ const btn2 = document.getElementById('btn2')
 const btn3 = document.getElementById('btn3')
 const btn4 = document.getElementById('btn4')
 const btn5 = document.getElementById('btn5')
+
 const vaciar = document.getElementById('vaciar')
 const listaCarrito = document.getElementById('carrito')
 const inputCupon = document.getElementById('input-cupon')
@@ -114,7 +118,7 @@ function guardarCarrito(){
     localStorage.setItem('carrito',JSON.stringify(carrito))
 }
 
-function agregarAlCarrito(idProducto, cantidad){
+function agregarAlCarrito(idProducto, cantidad = 1){
     const productoAgregar = buscarProductoId(idProducto)
     let enCarrito = false
     if (cantidad !== 0){
@@ -168,6 +172,7 @@ function actualizarCarrito(){
     <li id="subtotal-carrito">Subtotal: $${subtotal}</li>
     <li id="descuento-carrito"><em>Descuento: -$${descuento}</em></li>
     <li id="total-carrito"><strong>Total: $${total}</strong></li>`
+    //actualizarProductos()
 }
 
 function removerDelCarrito(idProducto){
@@ -183,37 +188,6 @@ actualizarTotales()
 actualizarCarrito()
 
 // Eventos
-btn1.addEventListener('click', (event) => {
-    event.preventDefault()
-    agregarAlCarrito(1,parseInt(cant1.value))
-    cant1.value = 0
-    actualizarCarrito()
-})
-btn2.addEventListener('click', (event) => {
-    event.preventDefault()
-    agregarAlCarrito(2,parseInt(cant2.value))
-    cant2.value = 0
-    actualizarCarrito()
-})
-btn3.addEventListener('click', (event) => {
-    event.preventDefault()
-    agregarAlCarrito(3,parseInt(cant3.value))
-    cant3.value = 0
-    actualizarCarrito()
-})
-btn4.addEventListener('click', (event) => {
-    event.preventDefault()
-    agregarAlCarrito(4,parseInt(cant4.value))
-    cant4.value = 0
-    actualizarCarrito()
-})
-btn5.addEventListener('click', (event) => {
-    event.preventDefault()
-    agregarAlCarrito(5,parseInt(cant5.value))
-    cant5.value = 0
-    actualizarCarrito()
-})
-
 vaciar.addEventListener('click',(event) => {
     event.preventDefault()
     vaciarCarrito()
@@ -228,3 +202,43 @@ btnValidarCupon.addEventListener('click',(event) => {
 
     inputCupon.value = ''
 })
+/*
+EN DESARROLLO
+function actualizarProductos(){
+    for (let i = 0 ; i < productos.length; i++){
+        let cant = 0
+        for (let j = 0 ; j < carrito.length; j++){
+            if (productos[i].id === carrito[j].id){
+                cant = carrito[j].cant
+            }
+        }
+        $(`.cant${productos[i].id}`).html(
+            `Cant.: ${cant}`
+        )
+    }
+}
+*/
+function mostrarProductos(){
+    for (let i = 0 ; i < productos.length; i++){
+        
+        $('#catalogo').append(
+            `<li class="producto">
+                <img src="http://via.placeholder.com/300?text=${productos[i].nombre}" alt="imagen del producto ${productos[i].nombre}">
+                <div class="datos-producto">
+                    <h3 class="nombre-producto">${productos[i].nombre}</h3>
+                    <p class="precio-producto">$${productos[i].precio}</p>
+                    <!--<p class="cant${productos[i].id}">Cant.: ${productos[i].cant}</p>-->
+                    <label for="cant${productos[i].id}">Cant.</label>
+                    <input id="cant${productos[i].id}" type="number" value="0" min="0" autocomplete="off">
+                    <button id="btn${productos[i].id}">Agregar al Carrito</button>
+                </div>
+            </li>`
+        )
+
+        $(`#btn${productos[i].id}`).on('click', (event) => {
+            event.preventDefault()
+            agregarAlCarrito(parseInt(`${productos[i].id}`),parseInt($(`#cant${productos[i].id}`).val()))
+            actualizarCarrito()
+        })
+    }
+}
