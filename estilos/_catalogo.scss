@@ -6,13 +6,23 @@
             @include card (20%);
             margin-right: 5%;
             margin-bottom: $espacioSeccion;
+            display: flex;
+            flex-direction: column;
             img{
                 width: 100%;
             }
             .datos-producto{
                 padding: $espacioParrafos;
-                input, button{
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                .nombre-producto{
+                    text-transform: capitalize;
+                }
+                .btn-agregar, .cant-producto{
                     width: 100%;
+                    margin-top: auto;
+                    margin-bottom: 0;
                 }
             }
             

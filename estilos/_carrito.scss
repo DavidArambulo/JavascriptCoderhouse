@@ -39,6 +39,9 @@
             @include card(100%);
             display: flex;
             align-items: center;
+            img{
+                width: 100px;
+            }
             .datos{
                 width: 100%;
                 display: grid;

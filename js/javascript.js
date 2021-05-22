@@ -1,20 +1,43 @@
 // Creacion de la clase Producto y de una lista útil para la utilización de estos
 class Producto {
-    constructor (nombre, precio, id){
+    constructor (nombre, color, genero, precio, id){
         this.nombre = nombre.toLowerCase()
         this.precio = parseFloat(precio)
         this.id     = parseInt(id)
-        this.stock  = true
+        this.genero = genero.toLowerCase()
+        this.color  = color.toLowerCase()
         this.cant   = 0
         this.subtotal = 0
     }
 }
-
+const URL = './database/db-productos.json'
 let productos = []
+$( document ).ready(() => {
+    /*$.get(`${URL}`, (response, status) => {
+        if (status === 'success'){
+            for ( let i = 0; i < response.length; i++){
+                crearProducto(response[i].nombre, response[i].color, response[i].genero, response[i].precio, response[i].id)
+            }
+            mostrarProductos()
+            actualizarCarrito()
+        }
+    })*/
+    $.ajax({
+        method: "GET",
+        url: `${URL}`,
+        success: (response) => {
+            for ( let i = 0; i < response.length; i++){
+                crearProducto(response[i].nombre, response[i].color, response[i].genero, response[i].precio, response[i].id)
+            }
+            mostrarProductos()
+            actualizarCarrito()
+        }
+    })
+})
 
 // Funciones relacionadas al array de productos
-function crearProducto(nombre, precio, id){
-    const nuevoProducto = new Producto(nombre, precio, id)
+function crearProducto(nombre, color, genero, precio, id){
+    const nuevoProducto = new Producto(nombre, color, genero, precio, id)
     productos.push(nuevoProducto)
 }
 
@@ -27,14 +50,6 @@ function buscarProductoId(id){
 
     return productoABuscar
 }
-
-crearProducto('Campera', '4000', '1')
-crearProducto('Remera', '2000', '2')
-crearProducto('Jean', '3500', '3')
-crearProducto('Bermuda', '3000', '4')
-crearProducto('Gorra', '2000', '5')
-crearProducto('Bufanda', '2000', '6')
-mostrarProductos()
 
 // Inicializacion de variables, constantes y listas necesarias
 let carrito = JSON.parse(localStorage.getItem('carrito'))
@@ -120,12 +135,25 @@ function agregarAlCarrito(idProducto, cantidad = 1){
             }
         }
         if (!enCarrito){
-            productoAgregar.cant += cantidad
             carrito.push(productoAgregar)
             const iUltimoProducto = carrito.length-1
+            carrito[iUltimoProducto].cant += cantidad
             calcularSubtotalProducto(carrito[iUltimoProducto])
             guardarCarrito()
             actualizarTotales()
+        }
+    }
+}
+
+function restarAlCarrito(idProducto){
+    const productoRestar = buscarProductoId(idProducto)
+    for (let i = 0; i < carrito.length; i++) {
+        if (carrito[i].id === productoRestar.id && carrito[i].cant > 0){
+            carrito[i].cant--
+            carrito[i].subtotal -= carrito[i].precio
+            if (carrito[i].cant === 0){
+                removerDelCarrito(carrito[i].id)
+            }
         }
     }
 }
@@ -146,9 +174,9 @@ function actualizarCarrito(){
     for (let i = 0; i < carrito.length; i++){
         carritoHtml.innerHTML +=`
         <li class="producto-carrito" id="${carrito[i].id}">
-        <img src="http://via.placeholder.com/100?text=${carrito[i].nombre}" alt="imagen de ${carrito[i].nombre}">
+        <img src="media/img-productos/img-producto${carrito[i].id}.jpg" alt="${carrito[i].nombre} ${carrito[i].genero}, color ${carrito[i].color}">
             <ul class="datos">
-                <li class="nombre">${carrito[i].nombre}</li>
+                <li class="nombre">${productos[i].nombre} | ${productos[i].color} | ${productos[i].genero}</li>
                 <li class="precio">$${carrito[i].precio}</li>
                 <li class="cantidades">cant.: ${carrito[i].cant}</li>
                 <li class="subtotal-producto">Subtotal: ${carrito[i].subtotal}</li>
@@ -160,12 +188,14 @@ function actualizarCarrito(){
     <li id="subtotal-carrito">Subtotal: $${subtotal}</li>
     <li id="descuento-carrito"><em>Descuento: -$${descuento}</em></li>
     <li id="total-carrito"><strong>Total: $${total}</strong></li>`
-    //actualizarProductos()
+    actualizarProductos()
 }
 
 function removerDelCarrito(idProducto){
     const index = carrito.findIndex(producto => producto.id === idProducto)
     if (index >= 0){
+        carrito[index].cant = 0
+        carrito[index].subtotal = 0
         carrito.splice(index,1)
     }
     guardarCarrito()
@@ -178,28 +208,33 @@ function mostrarProductos(){
         
         $('#catalogo').append(
             `<li class="producto">
-                <img src="http://via.placeholder.com/300?text=${productos[i].nombre}" alt="imagen del producto ${productos[i].nombre}">
+                <img src="media/img-productos/img-producto${productos[i].id}.jpg" alt="${productos[i].nombre} ${productos[i].genero}, color ${productos[i].color}">
                 <div class="datos-producto">
-                    <h3 class="nombre-producto">${productos[i].nombre}</h3>
+                    <h3 class="nombre-producto">${productos[i].nombre} | ${productos[i].color} | ${productos[i].genero}</h3>
                     <p class="precio-producto">$${productos[i].precio}</p>
-                    <!--<p class="cant${productos[i].id}">Cant.: ${productos[i].cant}</p>-->
-                    <label for="cant${productos[i].id}">Cant.</label>
-                    <input id="cant${productos[i].id}" type="number" value="0" min="0" autocomplete="off">
-                    <button id="btn${productos[i].id}">Agregar al Carrito</button>
+                    <p id="cant-producto${productos[i].id}" class="cant-producto">Cant.: <button class="btn-menos${productos[i].id}"><i class="fas fa-minus"></i></button> <span id="cant${productos[i].id}">${productos[i].cant}</span> <button class="btn-mas${productos[i].id}"><i class="fas fa-plus"></i></button></p>
+                    <button id="btn${productos[i].id}" class="btn-agregar">Agregar al Carrito</button>
                 </div>
             </li>`
         )
 
         $(`#btn${productos[i].id}`).on('click', (event) => {
             event.preventDefault()
-            agregarAlCarrito(parseInt(`${productos[i].id}`),parseInt($(`#cant${productos[i].id}`).val()))
+            agregarAlCarrito(parseInt(`${productos[i].id}`))
+            actualizarCarrito()
+        })
+        $(`.btn-mas${productos[i].id}`).on('click', (event) => {
+            event.preventDefault()
+            agregarAlCarrito(parseInt(`${productos[i].id}`))
+            actualizarCarrito()
+        })
+        $(`.btn-menos${productos[i].id}`).on('click', (event) => {
+            event.preventDefault()
+            restarAlCarrito(parseInt(`${productos[i].id}`))
             actualizarCarrito()
         })
     }
 }
-
-actualizarTotales()
-actualizarCarrito()
 
 // Eventos
 vaciar.addEventListener('click',(event) => {
@@ -216,19 +251,30 @@ btnValidarCupon.addEventListener('click',(event) => {
 
     inputCupon.value = ''
 })
-/*
-EN DESARROLLO
+
+function toggleDisplayCant(cantidad, idProducto){
+    if (cantidad === 0){
+        $(`#cant-producto${idProducto}`).addClass('deshabilitado')
+        $(`#btn${idProducto}`).removeClass('deshabilitado')
+    }else{
+        $(`#cant-producto${idProducto}`).removeClass('deshabilitado')
+        $(`#btn${idProducto}`).addClass('deshabilitado')
+    }
+}
+
 function actualizarProductos(){
     for (let i = 0 ; i < productos.length; i++){
         let cant = 0
+        toggleDisplayCant(productos[i].cant, productos[i].id)
         for (let j = 0 ; j < carrito.length; j++){
             if (productos[i].id === carrito[j].id){
                 cant = carrito[j].cant
+                toggleDisplayCant(carrito[j].cant, productos[i].id)
             }
         }
-        $(`.cant${productos[i].id}`).html(
-            `Cant.: ${cant}`
+        $(`#cant${productos[i].id}`).html(
+            `${cant}`
         )
     }
 }
-*/
+

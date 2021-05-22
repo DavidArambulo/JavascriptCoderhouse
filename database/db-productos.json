@@ -1,0 +1,121 @@
+[
+    {
+        "nombre": "Buzo",
+        "precio": "3000",
+        "id": "1",
+        "genero": "unisex",
+        "color": "lila",
+        "cant": "0",
+        "subtotal": "0"
+    },
+
+    {
+        "nombre": "Buzo",
+        "precio": "3000",
+        "id": "2",
+        "genero": "unisex",
+        "color": "crema",
+        "cant": "0",
+        "subtotal": "0"
+    },
+
+    {
+        "nombre": "Buzo",
+        "precio": "3000",
+        "id": "3",
+        "genero": "unisex",
+        "color": "negro",
+        "cant": "0",
+        "subtotal": "0"
+    },
+
+    {
+        "nombre": "Buzo",
+        "precio": "3000",
+        "id": "4",
+        "genero": "unisex",
+        "color": "gris",
+        "cant": "0",
+        "subtotal": "0"
+    },
+
+    {
+        "nombre": "Buzo",
+        "precio": "3000",
+        "id": "5",
+        "genero": "unisex",
+        "color": "rosa",
+        "cant": "0",
+        "subtotal": "0"
+    },
+
+    {
+        "nombre": "Remera manga corta",
+        "precio": "2500",
+        "id": "6",
+        "genero": "mujer",
+        "color": "blanco",
+        "cant": "0",
+        "subtotal": "0"
+    },
+
+    {
+        "nombre": "Remera manga corta",
+        "precio": "2500",
+        "id": "7",
+        "genero": "mujer",
+        "color": "marón",
+        "cant": "0",
+        "subtotal": "0"
+    },
+
+    {
+        "nombre": "Remera manga larga",
+        "precio": "2750",
+        "id": "8",
+        "genero": "mujer",
+        "color": "gris",
+        "cant": "0",
+        "subtotal": "0"
+    },
+
+    {
+        "nombre": "Remera manga larga",
+        "precio": "2750",
+        "id": "9",
+        "genero": "mujer",
+        "color": "amarillo",
+        "cant": "0",
+        "subtotal": "0"
+    },
+
+    {
+        "nombre": "Remera manga larga",
+        "precio": "2750",
+        "id": "10",
+        "genero": "mujer",
+        "color": "beige",
+        "cant": "0",
+        "subtotal": "0"
+    },
+
+    {
+        "nombre": "Remera manga corta",
+        "precio": "2500",
+        "id": "11",
+        "genero": "hombre",
+        "color": "blanco",
+        "cant": "0",
+        "subtotal": "0"
+    },
+
+    {
+        "nombre": "Remera manga corta",
+        "precio": "2500",
+        "id": "12",
+        "genero": "hombre",
+        "color": "gris",
+        "cant": "0",
+        "subtotal": "0"
+    }
+]
