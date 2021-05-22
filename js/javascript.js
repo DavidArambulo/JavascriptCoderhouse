@@ -10,8 +10,12 @@ class Producto {
         this.subtotal = 0
     }
 }
-const URL = './database/db-productos.json'
+
 let productos = []
+
+// Obtencion de los productos de la base de datos
+const URL = './database/db-productos.json'
+
 $( document ).ready(() => {
     /*$.get(`${URL}`, (response, status) => {
         if (status === 'success'){
@@ -102,13 +106,6 @@ function actualizarTotales(){
 }
 
 // Constantes de escucha de elementos del html
-
-// Se utiliza la notacion [elemento][id] 
-// donde: 
-// "elemento" esta relacionado a un producto;
-// y "id" es el id del producto
-// Ej: "cant0" es la cantidad de productos de id === 0
-
 const vaciar = document.getElementById('vaciar')
 const listaCarrito = document.getElementById('carrito')
 const inputCupon = document.getElementById('input-cupon')
@@ -202,7 +199,7 @@ function removerDelCarrito(idProducto){
     actualizarCarrito()
 }
 
-// Esta función permite no tener que crear los elementos del html a mano para cada producto
+// Funciones para mostrar y actualizar los productos en la página
 function mostrarProductos(){
     for (let i = 0 ; i < productos.length; i++){
         
@@ -216,11 +213,11 @@ function mostrarProductos(){
                     <button id="btn${productos[i].id}" class="btn-agregar">Agregar al Carrito</button>
                 </div>
             </li>`
-        )
-
-        $(`#btn${productos[i].id}`).on('click', (event) => {
-            event.preventDefault()
-            agregarAlCarrito(parseInt(`${productos[i].id}`))
+            )
+            
+            $(`#btn${productos[i].id}`).on('click', (event) => {
+                event.preventDefault()
+                agregarAlCarrito(parseInt(`${productos[i].id}`))
             actualizarCarrito()
         })
         $(`.btn-mas${productos[i].id}`).on('click', (event) => {
@@ -235,22 +232,6 @@ function mostrarProductos(){
         })
     }
 }
-
-// Eventos
-vaciar.addEventListener('click',(event) => {
-    event.preventDefault()
-    vaciarCarrito()
-    actualizarCarrito()
-})
-
-btnValidarCupon.addEventListener('click',(event) => {
-    event.preventDefault()
-    const cupon = inputCupon.value
-    validarCupon(cupon)
-    actualizarCarrito()
-
-    inputCupon.value = ''
-})
 
 function toggleDisplayCant(cantidad, idProducto){
     if (cantidad === 0){
@@ -278,3 +259,18 @@ function actualizarProductos(){
     }
 }
 
+// Eventos
+vaciar.addEventListener('click',(event) => {
+    event.preventDefault()
+    vaciarCarrito()
+    actualizarCarrito()
+})
+
+btnValidarCupon.addEventListener('click',(event) => {
+    event.preventDefault()
+    const cupon = inputCupon.value
+    validarCupon(cupon)
+    actualizarCarrito()
+
+    inputCupon.value = ''
+})
