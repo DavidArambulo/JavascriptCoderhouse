@@ -74,6 +74,14 @@
                 }
             }
         }
+        .envio{
+            margin-top: $espacioTitulos;
+            @include fondoGlassmorph();
+            h3{
+                font-family: $fuenteTitulos;
+                font-size: 1.3rem;
+            }
+        }
         .detalle{
             margin-top: $espacioTitulos;
             @include fondoGlassmorph();
@@ -83,17 +91,19 @@
             }
             #pagar-carrito{
                 display: block;
-                width: 100%;
+                margin-left: auto;
+                margin-right: auto;
+                width: 95%;
                 padding: $espacioParrafosReducido;
                 margin-bottom: $espacioParrafos;
             }
-            #subtotal-carrito, #total-carrito, #descuento-carrito{
+            #subtotal-carrito, #total-carrito, #descuento-carrito, #envio-carrito{
                 margin-bottom: $espacioParrafosReducido;
             }
             #total-carrito{
                 font-size: 1.1rem;
             }
-            #subtotal-carrito, #descuento-carrito{
+            #subtotal-carrito, #descuento-carrito, #envio-carrito{
                 font-size: 0.9rem;
             }
             #descuento-carrito, .cupon{

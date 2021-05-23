@@ -276,6 +276,21 @@ footer .aclaracion {
   grid-area: eliminar;
 }
 
+.carrito .contenido-modal .envio {
+  margin-top: 1rem;
+  background: rgba(255, 255, 255, 0.149);
+  -webkit-box-shadow: 0 8px 32px 0 rgba(48, 52, 63, 0.369);
+          box-shadow: 0 8px 32px 0 rgba(48, 52, 63, 0.369);
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.carrito .contenido-modal .envio h3 {
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.3rem;
+}
+
 .carrito .contenido-modal .detalle {
   margin-top: 1rem;
   background: rgba(255, 255, 255, 0.149);
@@ -293,12 +308,14 @@ footer .aclaracion {
 
 .carrito .contenido-modal .detalle #pagar-carrito {
   display: block;
-  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  width: 95%;
   padding: 0.15rem;
   margin-bottom: 0.5rem;
 }
 
-.carrito .contenido-modal .detalle #subtotal-carrito, .carrito .contenido-modal .detalle #total-carrito, .carrito .contenido-modal .detalle #descuento-carrito {
+.carrito .contenido-modal .detalle #subtotal-carrito, .carrito .contenido-modal .detalle #total-carrito, .carrito .contenido-modal .detalle #descuento-carrito, .carrito .contenido-modal .detalle #envio-carrito {
   margin-bottom: 0.15rem;
 }
 
@@ -306,7 +323,7 @@ footer .aclaracion {
   font-size: 1.1rem;
 }
 
-.carrito .contenido-modal .detalle #subtotal-carrito, .carrito .contenido-modal .detalle #descuento-carrito {
+.carrito .contenido-modal .detalle #subtotal-carrito, .carrito .contenido-modal .detalle #descuento-carrito, .carrito .contenido-modal .detalle #envio-carrito {
   font-size: 0.9rem;
 }
 

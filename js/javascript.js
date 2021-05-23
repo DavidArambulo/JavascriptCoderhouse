@@ -67,8 +67,10 @@ if (!carrito){
 
 let subtotal = 0
 let descuento = 0
+let envio = 0
 let total = 0
 let cuponDescuentoAplicado = false
+const montoEnvioGratis = 5000
 
 // Funciones para realizar calculos de totales, descuentos y validaciones
 function calcularSubtotalProducto(producto){
@@ -94,17 +96,24 @@ function validarCupon(cupon){
     }
 }
 
+function validarEnvioGratis(){
+    if(subtotal >= montoEnvioGratis){
+        envio = 0
+    }
+}
+
 function calcularTotal(){
     if (cuponDescuentoAplicado){
         calcularDescuento()
-        total = subtotal - descuento
+        total = subtotal - descuento + envio
     } else{
-        total = subtotal
+        total = subtotal + envio
     }
 }
 
 function actualizarTotales(){
     calcularSubtotal()
+    validarEnvioGratis()
     calcularTotal()
 }
 
@@ -164,6 +173,7 @@ function vaciarCarrito(){
         carrito[i].subtotal = 0
     }
     carrito.splice(0,carrito.length)
+    $('.tipo-envio').trigger('change')
     actualizarTotales()
     localStorage.removeItem('carrito')
 }
@@ -187,6 +197,7 @@ function actualizarCarrito(){
     totalesCarrito.innerHTML = `
     <li id="subtotal-carrito">Subtotal: $${subtotal}</li>
     <li id="descuento-carrito"><em>Descuento: -$${descuento}</em></li>
+    <li id="envio-carrito">Envío: +$${envio}</li>
     <li id="total-carrito"><strong>Total: $${total}</strong></li>`
     actualizarProductos()
 }
@@ -199,6 +210,7 @@ function removerDelCarrito(idProducto){
         carrito.splice(index,1)
     }
     guardarCarrito()
+    $('.tipo-envio').trigger('change')
     actualizarCarrito()
 }
 
@@ -329,4 +341,15 @@ $('.abrir-carrito, .cerrar-carrito').on('click', (event) => {
 })
 $('header').scroll(() => {
     $('header').slideUp()
+})
+
+$('.tipo-envio').on('change', () => {
+    const value = $('.tipo-envio:checked').val()
+    if(value === 'interior'){
+        envio = 500
+    }else{
+        envio = 0
+    }
+    calcularTotal()
+    actualizarCarrito()
 })
