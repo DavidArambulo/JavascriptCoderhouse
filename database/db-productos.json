@@ -3,7 +3,7 @@
         "nombre": "Buzo",
         "precio": "3000",
         "id": "1",
-        "genero": "unisex",
+        "sexo": "unisex",
         "color": "lila",
         "cant": "0",
         "subtotal": "0"
@@ -13,7 +13,7 @@
         "nombre": "Buzo",
         "precio": "3000",
         "id": "2",
-        "genero": "unisex",
+        "sexo": "unisex",
         "color": "crema",
         "cant": "0",
         "subtotal": "0"
@@ -23,7 +23,7 @@
         "nombre": "Buzo",
         "precio": "3000",
         "id": "3",
-        "genero": "unisex",
+        "sexo": "unisex",
         "color": "negro",
         "cant": "0",
         "subtotal": "0"
@@ -33,7 +33,7 @@
         "nombre": "Buzo",
         "precio": "3000",
         "id": "4",
-        "genero": "unisex",
+        "sexo": "unisex",
         "color": "gris",
         "cant": "0",
         "subtotal": "0"
@@ -43,7 +43,7 @@
         "nombre": "Buzo",
         "precio": "3000",
         "id": "5",
-        "genero": "unisex",
+        "sexo": "unisex",
         "color": "rosa",
         "cant": "0",
         "subtotal": "0"
@@ -53,7 +53,7 @@
         "nombre": "Remera manga corta",
         "precio": "2500",
         "id": "6",
-        "genero": "mujer",
+        "sexo": "mujer",
         "color": "blanco",
         "cant": "0",
         "subtotal": "0"
@@ -63,7 +63,7 @@
         "nombre": "Remera manga corta",
         "precio": "2500",
         "id": "7",
-        "genero": "mujer",
+        "sexo": "mujer",
         "color": "marón",
         "cant": "0",
         "subtotal": "0"
@@ -73,7 +73,7 @@
         "nombre": "Remera manga larga",
         "precio": "2750",
         "id": "8",
-        "genero": "mujer",
+        "sexo": "mujer",
         "color": "gris",
         "cant": "0",
         "subtotal": "0"
@@ -83,7 +83,7 @@
         "nombre": "Remera manga larga",
         "precio": "2750",
         "id": "9",
-        "genero": "mujer",
+        "sexo": "mujer",
         "color": "amarillo",
         "cant": "0",
         "subtotal": "0"
@@ -93,7 +93,7 @@
         "nombre": "Remera manga larga",
         "precio": "2750",
         "id": "10",
-        "genero": "mujer",
+        "sexo": "mujer",
         "color": "beige",
         "cant": "0",
         "subtotal": "0"
@@ -103,7 +103,7 @@
         "nombre": "Remera manga corta",
         "precio": "2500",
         "id": "11",
-        "genero": "hombre",
+        "sexo": "hombre",
         "color": "blanco",
         "cant": "0",
         "subtotal": "0"
@@ -113,7 +113,7 @@
         "nombre": "Remera manga corta",
         "precio": "2500",
         "id": "12",
-        "genero": "hombre",
+        "sexo": "hombre",
         "color": "gris",
         "cant": "0",
         "subtotal": "0"

@@ -1,10 +1,10 @@
 // Creacion de la clase Producto y de una lista útil para la utilización de estos
 class Producto {
-    constructor (nombre, color, genero, precio, id){
+    constructor (nombre, color, sexo, precio, id){
         this.nombre = nombre.toLowerCase()
         this.precio = parseFloat(precio)
         this.id     = parseInt(id)
-        this.genero = genero.toLowerCase()
+        this.sexo = sexo.toLowerCase()
         this.color  = color.toLowerCase()
         this.cant   = 0
         this.subtotal = 0
@@ -12,6 +12,7 @@ class Producto {
 }
 
 let productos = []
+let productosFiltrado = []
 
 // Obtencion de los productos de la base de datos
 const URL = './database/db-productos.json'
@@ -20,9 +21,10 @@ $( document ).ready(() => {
     /*$.get(`${URL}`, (response, status) => {
         if (status === 'success'){
             for ( let i = 0; i < response.length; i++){
-                crearProducto(response[i].nombre, response[i].color, response[i].genero, response[i].precio, response[i].id)
+                crearProducto(response[i].nombre, response[i].color, response[i].sexo, response[i].precio, response[i].id)
             }
-            mostrarProductos()
+            productosFiltrado = productos
+            mostrarCatalogo()
             actualizarCarrito()
         }
     })*/
@@ -31,17 +33,18 @@ $( document ).ready(() => {
         url: `${URL}`,
         success: (response) => {
             for ( let i = 0; i < response.length; i++){
-                crearProducto(response[i].nombre, response[i].color, response[i].genero, response[i].precio, response[i].id)
+                crearProducto(response[i].nombre, response[i].color, response[i].sexo, response[i].precio, response[i].id)
             }
-            mostrarProductos()
+            productosFiltrado = productos
+            mostrarCatalogo()
             actualizarCarrito()
         }
     })
 })
 
 // Funciones relacionadas al array de productos
-function crearProducto(nombre, color, genero, precio, id){
-    const nuevoProducto = new Producto(nombre, color, genero, precio, id)
+function crearProducto(nombre, color, sexo, precio, id){
+    const nuevoProducto = new Producto(nombre, color, sexo, precio, id)
     productos.push(nuevoProducto)
 }
 
@@ -171,9 +174,9 @@ function actualizarCarrito(){
     for (let i = 0; i < carrito.length; i++){
         carritoHtml.innerHTML +=`
         <li class="producto-carrito" id="${carrito[i].id}">
-        <img src="media/img-productos/img-producto${carrito[i].id}.jpg" alt="${carrito[i].nombre} ${carrito[i].genero}, color ${carrito[i].color}">
+        <img src="media/img-productos/img-producto${carrito[i].id}.jpg" alt="${carrito[i].nombre} ${carrito[i].sexo}, color ${carrito[i].color}">
             <ul class="datos">
-                <li class="nombre">${productos[i].nombre} | ${productos[i].color} | ${productos[i].genero}</li>
+                <li class="nombre">${productos[i].nombre} | ${productos[i].color} | ${productos[i].sexo}</li>
                 <li class="precio">$${carrito[i].precio}</li>
                 <li class="cantidades">cant.: ${carrito[i].cant}</li>
                 <li class="subtotal-producto">Subtotal: ${carrito[i].subtotal}</li>
@@ -200,37 +203,82 @@ function removerDelCarrito(idProducto){
 }
 
 // Funciones para mostrar y actualizar los productos en la página
+function agregarALista(lista, elementoAgregar){
+    let enLista = false
+    for ( let j = 0; j < lista.length; j++){
+        if(lista[j] === elementoAgregar){
+            enLista = true
+        }
+    }
+    if (!enLista){
+        lista.push(elementoAgregar)
+    }
+}
+
+function mostrarFiltro(lista, nombre){
+    for (let i = 0; i < lista.length; i++) {
+        $(`#${nombre}`).append(
+            `<option value="${lista[i]}">${lista[i]}</option>`
+        )
+    }
+}
+
 function mostrarProductos(){
-    for (let i = 0 ; i < productos.length; i++){
-        
+    $('#catalogo').html('')
+    for (let i = 0 ; i < productosFiltrado.length; i++){
         $('#catalogo').append(
             `<li class="producto">
-                <img src="media/img-productos/img-producto${productos[i].id}.jpg" alt="${productos[i].nombre} ${productos[i].genero}, color ${productos[i].color}">
+                <img src="media/img-productos/img-producto${productosFiltrado[i].id}.jpg" alt="${productosFiltrado[i].nombre} ${productosFiltrado[i].sexo}, color ${productosFiltrado[i].color}">
                 <div class="datos-producto">
-                    <h3 class="nombre-producto">${productos[i].nombre} | ${productos[i].color} | ${productos[i].genero}</h3>
-                    <p class="precio-producto">$${productos[i].precio}</p>
-                    <p id="cant-producto${productos[i].id}" class="cant-producto">Cant.: <button class="btn-menos${productos[i].id}"><i class="fas fa-minus"></i></button> <span id="cant${productos[i].id}">${productos[i].cant}</span> <button class="btn-mas${productos[i].id}"><i class="fas fa-plus"></i></button></p>
-                    <button id="btn${productos[i].id}" class="btn-agregar">Agregar al Carrito</button>
+                    <h3 class="nombre-producto">${productosFiltrado[i].nombre} | ${productosFiltrado[i].color} | ${productosFiltrado[i].sexo}</h3>
+                    <p class="precio-producto">$${productosFiltrado[i].precio}</p>
+                    <p id="cant-producto${productosFiltrado[i].id}" class="cant-producto">Cant.: <button class="btn-menos${productosFiltrado[i].id}"><i class="fas fa-minus"></i></button> <span id="cant${productosFiltrado[i].id}">${productosFiltrado[i].cant}</span> <button class="btn-mas${productosFiltrado[i].id}"><i class="fas fa-plus"></i></button></p>
+                    <button id="btn${productosFiltrado[i].id}" class="btn-agregar">Agregar al Carrito</button>
                 </div>
             </li>`
-            )
-            
-            $(`#btn${productos[i].id}`).on('click', (event) => {
-                event.preventDefault()
-                agregarAlCarrito(parseInt(`${productos[i].id}`))
+        )
+
+        $(`#btn${productosFiltrado[i].id}`).on('click', (event) => {
+            event.preventDefault()
+            agregarAlCarrito(parseInt(`${productosFiltrado[i].id}`))
             actualizarCarrito()
         })
-        $(`.btn-mas${productos[i].id}`).on('click', (event) => {
+
+        $(`.btn-mas${productosFiltrado[i].id}`).on('click', (event) => {
             event.preventDefault()
-            agregarAlCarrito(parseInt(`${productos[i].id}`))
+            agregarAlCarrito(parseInt(`${productosFiltrado[i].id}`))
             actualizarCarrito()
         })
-        $(`.btn-menos${productos[i].id}`).on('click', (event) => {
+
+        $(`.btn-menos${productosFiltrado[i].id}`).on('click', (event) => {
             event.preventDefault()
-            restarAlCarrito(parseInt(`${productos[i].id}`))
+            restarAlCarrito(parseInt(`${productosFiltrado[i].id}`))
             actualizarCarrito()
         })
     }
+}
+
+function mostrarCatalogo(){
+    //let colores = []
+    let sexos = []
+    for (let i = 0 ; i < productos.length; i++){
+        //agregarALista(colores, productos[i].color)
+        agregarALista(sexos, productos[i].sexo)
+    }
+    //mostrarFiltro(colores, 'filtro-color')
+    mostrarFiltro(sexos, 'filtro-sexo')
+    $(`#filtro-sexo`).change( (event) => {
+        event.preventDefault()
+        productosFiltrado = productos.filter( producto => {
+            if ($(`#filtro-sexo`).val() === ""){
+                return producto
+            }else{
+                return producto.sexo === $(`#filtro-sexo`).val()
+            }
+        })
+        mostrarProductos()
+    })
+    mostrarProductos()
 }
 
 function toggleDisplayCant(cantidad, idProducto){
