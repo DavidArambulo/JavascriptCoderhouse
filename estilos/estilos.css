@@ -1,13 +1,4 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Roboto:ital,wght@0,100;0,400;0,500;0,700;1,400&display=swap");
-.burbuja, .carrito, .carrito .contenido-modal .detalle {
-  background: rgba(255, 255, 255, 0.15);
-  -webkit-box-shadow: 0 8px 32px 0 rgba(48, 52, 63, 0.369);
-          box-shadow: 0 8px 32px 0 rgba(48, 52, 63, 0.369);
-  backdrop-filter: blur(7px);
-  -webkit-backdrop-filter: blur(7px);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-}
-
 * {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -43,6 +34,18 @@ a {
   color: #1B2021;
 }
 
+button {
+  -webkit-transition: -webkit-transform 0.1s;
+  transition: -webkit-transform 0.1s;
+  transition: transform 0.1s;
+  transition: transform 0.1s, -webkit-transform 0.1s;
+}
+
+button:hover {
+  -webkit-transform: scale(1.05);
+          transform: scale(1.05);
+}
+
 .contenedor {
   width: 90%;
   max-width: 1200px;
@@ -55,7 +58,12 @@ a {
 }
 
 header {
-  background-color: #1B2021;
+  background: rgba(28, 33, 34, 0.85);
+  -webkit-box-shadow: 0 8px 32px 0 rgba(48, 52, 63, 0.369);
+          box-shadow: 0 8px 32px 0 rgba(48, 52, 63, 0.369);
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   position: -webkit-sticky;
   position: sticky;
   top: 0;
@@ -86,6 +94,10 @@ header .nav a {
   font-family: "Montserrat", sans-serif;
   font-weight: 500;
   font-size: 1.08rem;
+}
+
+header .nav a:hover {
+  color: #52B788;
 }
 
 header .nav .nav-list {
@@ -147,6 +159,12 @@ footer .aclaracion {
   padding: 0.5rem;
   border-radius: 50px;
   z-index: 1;
+  background: rgba(255, 255, 255, 0.149);
+  -webkit-box-shadow: 0 8px 32px 0 rgba(48, 52, 63, 0.369);
+          box-shadow: 0 8px 32px 0 rgba(48, 52, 63, 0.369);
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   position: fixed;
 }
 
@@ -173,10 +191,12 @@ footer .aclaracion {
   right: 2rem;
   overflow: auto;
   display: none;
-}
-
-.carrito#modal-carrito:target {
-  display: block;
+  background: rgba(255, 255, 255, 0.149);
+  -webkit-box-shadow: 0 8px 32px 0 rgba(48, 52, 63, 0.369);
+          box-shadow: 0 8px 32px 0 rgba(48, 52, 63, 0.369);
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
 .carrito .contenido-modal {
@@ -258,6 +278,12 @@ footer .aclaracion {
 
 .carrito .contenido-modal .detalle {
   margin-top: 1rem;
+  background: rgba(255, 255, 255, 0.149);
+  -webkit-box-shadow: 0 8px 32px 0 rgba(48, 52, 63, 0.369);
+          box-shadow: 0 8px 32px 0 rgba(48, 52, 63, 0.369);
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
 .carrito .contenido-modal .detalle h3 {

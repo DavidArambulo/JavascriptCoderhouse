@@ -1,6 +1,6 @@
 // HEADER
 header{
-    background-color: $colorBaseNegro;
+    @include fondoGlassmorph($colorBaseNegroTransparente);
     position: sticky;
     top: 0;
     .nav{
@@ -18,6 +18,9 @@ header{
             font-family: $fuenteTitulos;
             font-weight: 500;
             font-size: 1.08rem;
+            &:hover{
+                color: $colorSecundario;
+            }
         }
         .nav-list{
             display: flex;

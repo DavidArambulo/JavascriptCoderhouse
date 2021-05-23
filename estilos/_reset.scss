@@ -33,11 +33,22 @@ a{
     color: $colorBaseNegro;
 }
 
+button{
+    transition: transform 0.1s;
+    &:hover{
+        transform: scale(1.05);
+    }
+}
+
 .contenedor{
     width: 90%;
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
+}
+
+.deshabilitado{
+    display: none;
 }
 
 @mixin card($ancho){
@@ -48,6 +59,10 @@ a{
     border: 1px solid rgba(48, 52, 64, 0.18);
 }
 
-.deshabilitado{
-    display: none;
+@mixin fondoGlassmorph($color: rgba(255, 255, 255, 0.149)){
+    background: $color;
+    box-shadow: $sombra;
+    backdrop-filter: blur( 7.0px );
+    -webkit-backdrop-filter: blur( 7.0px );
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
 }

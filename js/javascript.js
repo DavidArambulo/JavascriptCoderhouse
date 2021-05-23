@@ -323,3 +323,10 @@ btnValidarCupon.addEventListener('click',(event) => {
 
     inputCupon.value = ''
 })
+
+$('.abrir-carrito, .cerrar-carrito').on('click', (event) => {
+    $('#modal-carrito').slideToggle()
+})
+$('header').scroll(() => {
+    $('header').slideUp()
+})

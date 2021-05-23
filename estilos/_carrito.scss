@@ -3,7 +3,7 @@
     padding: $espacioParrafos;
     border-radius: 50px;
     z-index: 1;
-    @extend %fondoGlassmorph;
+    @include fondoGlassmorph();
     position: fixed;
     &.abrir-carrito{
         bottom: 1rem;
@@ -27,10 +27,7 @@
     right: 2rem;
     overflow: auto;
     display: none;
-    @extend %fondoGlassmorph;
-    &#modal-carrito:target{
-        display: block;
-    }
+    @include fondoGlassmorph();
     .contenido-modal{
         width: 95%;
         margin-left: auto;
@@ -79,7 +76,7 @@
         }
         .detalle{
             margin-top: $espacioTitulos;
-            @extend %fondoGlassmorph;
+            @include fondoGlassmorph();
             h3{
                 font-family: $fuenteTitulos;
                 font-size: 1.3rem;
