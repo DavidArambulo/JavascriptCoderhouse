@@ -256,6 +256,7 @@ function mostrarProductos(){
             actualizarCarrito()
         })
     }
+    actualizarCarrito()
 }
 
 function mostrarCatalogo(){
