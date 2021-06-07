@@ -1,3 +1,4 @@
+import * as calcYVal from './calculosYValidaciones.js'
 // Creacion de la clase Producto y de una lista útil para la utilización de estos
 class Producto {
     constructor (nombre, color, sexo, precio, id){
@@ -18,16 +19,6 @@ let productosFiltrado = []
 const URL = './database/db-productos.json'
 
 $( document ).ready(() => {
-    /*$.get(`${URL}`, (response, status) => {
-        if (status === 'success'){
-            for ( let i = 0; i < response.length; i++){
-                crearProducto(response[i].nombre, response[i].color, response[i].sexo, response[i].precio, response[i].id)
-            }
-            productosFiltrado = productos
-            mostrarCatalogo()
-            actualizarCarrito()
-        }
-    })*/
     $.ajax({
         method: "GET",
         url: `${URL}`,
@@ -70,56 +61,17 @@ let descuento = 0
 let envio = 0
 let total = 0
 let cuponDescuentoAplicado = false
+let esCABA = false
 const montoEnvioGratis = 5000
 
-// Funciones para realizar calculos de totales, descuentos y validaciones
-function calcularSubtotalProducto(producto){
-    producto.subtotal = producto.cant * producto.precio
-}
-
-function calcularSubtotal(){
-    subtotal = 0
-    for (let i = 0; i < carrito.length; i++){
-        subtotal += carrito[i].subtotal
-    }
-}
-
-function calcularDescuento(){
-    descuento = subtotal * 0.1
-}
-
-function validarCupon(cupon){
-    if (cupon.toUpperCase() === 'D3SAFIO10%' && !cuponDescuentoAplicado){
-        cuponDescuentoAplicado = true
-    } else {
-        alert ('No se puede aplicar el cupón ingresado')
-    }
-}
-
-function validarEnvioGratis(){
-    if(subtotal >= montoEnvioGratis){
-        envio = 0
-    }
-}
-
-function calcularTotal(){
-    if (cuponDescuentoAplicado){
-        calcularDescuento()
-        total = subtotal - descuento + envio
-    } else{
-        total = subtotal + envio
-    }
-}
-
 function actualizarTotales(){
-    calcularSubtotal()
-    validarEnvioGratis()
-    calcularTotal()
+    subtotal = calcYVal.calcularSubtotal(carrito)
+    envio = calcYVal.validarEnvioGratis(subtotal, montoEnvioGratis, esCABA)
+    total = calcYVal.calcularTotal(descuento, subtotal, envio)
 }
 
 // Constantes de escucha de elementos del html
 const vaciar = document.getElementById('vaciar')
-const listaCarrito = document.getElementById('carrito')
 const inputCupon = document.getElementById('input-cupon')
 const btnValidarCupon = document.getElementById('btn-validar-cupon')
 const carritoHtml = document.getElementById('carrito')
@@ -137,7 +89,7 @@ function agregarAlCarrito(idProducto, cantidad = 1){
         for (let i = 0; i < carrito.length; i++) {
             if (carrito[i].id === productoAgregar.id){
                 carrito[i].cant += cantidad
-                calcularSubtotalProducto(carrito[i])
+                calcYVal.calcularSubtotalProducto(carrito[i])
                 guardarCarrito()
                 actualizarTotales()
                 enCarrito = true
@@ -147,7 +99,7 @@ function agregarAlCarrito(idProducto, cantidad = 1){
             carrito.push(productoAgregar)
             const iUltimoProducto = carrito.length-1
             carrito[iUltimoProducto].cant += cantidad
-            calcularSubtotalProducto(carrito[iUltimoProducto])
+            calcYVal.calcularSubtotalProducto(carrito[iUltimoProducto])
             guardarCarrito()
             actualizarTotales()
         }
@@ -165,6 +117,7 @@ function restarAlCarrito(idProducto){
             }
         }
     }
+    guardarCarrito()
 }
 
 function vaciarCarrito(){
@@ -210,7 +163,6 @@ function removerDelCarrito(idProducto){
         carrito.splice(index,1)
     }
     guardarCarrito()
-    $('.tipo-envio').trigger('change')
     actualizarCarrito()
 }
 
@@ -330,9 +282,11 @@ vaciar.addEventListener('click',(event) => {
 btnValidarCupon.addEventListener('click',(event) => {
     event.preventDefault()
     const cupon = inputCupon.value
-    validarCupon(cupon)
+    cuponDescuentoAplicado = calcYVal.validarCupon(cupon, cuponDescuentoAplicado)
+    if(cuponDescuentoAplicado){
+        descuento = calcYVal.calcularDescuento(subtotal)
+    }
     actualizarCarrito()
-
     inputCupon.value = ''
 })
 
@@ -346,10 +300,9 @@ $('header').scroll(() => {
 $('.tipo-envio').on('change', () => {
     const value = $('.tipo-envio:checked').val()
     if(value === 'interior'){
-        envio = 500
+        esCABA = false
     }else{
-        envio = 0
+        esCABA = true
     }
-    calcularTotal()
     actualizarCarrito()
 })
