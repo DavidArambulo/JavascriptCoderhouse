@@ -1,17 +1,7 @@
-import * as calcYVal from './calculosYValidaciones.js'
-// Creacion de la clase Producto y de una lista útil para la utilización de estos
-class Producto {
-    constructor (nombre, color, sexo, precio, id){
-        this.nombre = nombre.toLowerCase()
-        this.precio = parseFloat(precio)
-        this.id     = parseInt(id)
-        this.sexo = sexo.toLowerCase()
-        this.color  = color.toLowerCase()
-        this.cant   = 0
-        this.subtotal = 0
-    }
-}
+import * as CalcYVal from './calculosYValidaciones.js'
+import * as Productos from './productos.js'
 
+// Lista de productos
 let productos = []
 let productosFiltrado = []
 
@@ -24,7 +14,7 @@ $( document ).ready(() => {
         url: `${URL}`,
         success: (response) => {
             for ( let i = 0; i < response.length; i++){
-                crearProducto(response[i].nombre, response[i].color, response[i].sexo, response[i].precio, response[i].id)
+                Productos.crearProducto(productos, response[i].nombre, response[i].color, response[i].sexo, response[i].precio, response[i].id)
             }
             productosFiltrado = productos
             mostrarCatalogo()
@@ -33,21 +23,7 @@ $( document ).ready(() => {
     })
 })
 
-// Funciones relacionadas al array de productos
-function crearProducto(nombre, color, sexo, precio, id){
-    const nuevoProducto = new Producto(nombre, color, sexo, precio, id)
-    productos.push(nuevoProducto)
-}
 
-function buscarProductoId(id){
-    const productoABuscar = productos.find( producto => producto.id === id)
-
-    if (!productoABuscar){
-        throw new Error (`No existe el producto de ${id}`)
-    }
-
-    return productoABuscar
-}
 
 // Inicializacion de variables, constantes y listas necesarias
 let carrito = JSON.parse(localStorage.getItem('carrito'))
@@ -65,9 +41,9 @@ let esCABA = false
 const montoEnvioGratis = 5000
 
 function actualizarTotales(){
-    subtotal = calcYVal.calcularSubtotal(carrito)
-    envio = calcYVal.validarEnvioGratis(subtotal, montoEnvioGratis, esCABA)
-    total = calcYVal.calcularTotal(descuento, subtotal, envio)
+    subtotal = CalcYVal.calcularSubtotal(carrito)
+    envio = CalcYVal.validarEnvioGratis(subtotal, montoEnvioGratis, esCABA)
+    total = CalcYVal.calcularTotal(descuento, subtotal, envio)
 }
 
 // Constantes de escucha de elementos del html
@@ -83,13 +59,13 @@ function guardarCarrito(){
 }
 
 function agregarAlCarrito(idProducto, cantidad = 1){
-    const productoAgregar = buscarProductoId(idProducto)
+    const productoAgregar = Productos.buscarProductoId(productos, idProducto)
     let enCarrito = false
     if (cantidad !== 0){
         for (let i = 0; i < carrito.length; i++) {
             if (carrito[i].id === productoAgregar.id){
                 carrito[i].cant += cantidad
-                calcYVal.calcularSubtotalProducto(carrito[i])
+                CalcYVal.calcularSubtotalProducto(carrito[i])
                 guardarCarrito()
                 actualizarTotales()
                 enCarrito = true
@@ -99,7 +75,7 @@ function agregarAlCarrito(idProducto, cantidad = 1){
             carrito.push(productoAgregar)
             const iUltimoProducto = carrito.length-1
             carrito[iUltimoProducto].cant += cantidad
-            calcYVal.calcularSubtotalProducto(carrito[iUltimoProducto])
+            CalcYVal.calcularSubtotalProducto(carrito[iUltimoProducto])
             guardarCarrito()
             actualizarTotales()
         }
@@ -107,7 +83,7 @@ function agregarAlCarrito(idProducto, cantidad = 1){
 }
 
 function restarAlCarrito(idProducto){
-    const productoRestar = buscarProductoId(idProducto)
+    const productoRestar = Productos.buscarProductoId(productos, idProducto)
     for (let i = 0; i < carrito.length; i++) {
         if (carrito[i].id === productoRestar.id && carrito[i].cant > 0){
             carrito[i].cant--
@@ -282,15 +258,15 @@ vaciar.addEventListener('click',(event) => {
 btnValidarCupon.addEventListener('click',(event) => {
     event.preventDefault()
     const cupon = inputCupon.value
-    cuponDescuentoAplicado = calcYVal.validarCupon(cupon, cuponDescuentoAplicado)
+    cuponDescuentoAplicado = CalcYVal.validarCupon(cupon, cuponDescuentoAplicado)
     if(cuponDescuentoAplicado){
-        descuento = calcYVal.calcularDescuento(subtotal)
+        descuento = CalcYVal.calcularDescuento(subtotal)
     }
     actualizarCarrito()
     inputCupon.value = ''
 })
 
-$('.abrir-carrito, .cerrar-carrito').on('click', (event) => {
+$('.abrir-carrito, .cerrar-carrito').on('click', () => {
     $('#modal-carrito').slideToggle()
 })
 $('header').scroll(() => {
