@@ -242,4 +242,5 @@ $(`#filtro-sexo`).change( (event) => {
         }
     })
     mostrarProductos()
+    actualizarProductos()
 })
