@@ -1,5 +1,6 @@
 import * as CalcYVal from './calculosYValidaciones.js'
 import * as Productos from './productos.js'
+import * as Carrito from './carrito.js'
 
 // Lista de productos
 let productos = []
@@ -18,7 +19,9 @@ $( document ).ready(() => {
             }
             productosFiltrado = productos
             mostrarCatalogo()
+            actualizarTotales()
             actualizarCarrito()
+            actualizarProductos()
         }
     })
 })
@@ -50,99 +53,44 @@ function actualizarTotales(){
 const vaciar = document.getElementById('vaciar')
 const inputCupon = document.getElementById('input-cupon')
 const btnValidarCupon = document.getElementById('btn-validar-cupon')
-const carritoHtml = document.getElementById('carrito')
-const totalesCarrito = document.getElementById('totales-carrito')
 
-// Funciones para la manipulación del carrito de compras
+// Funciones para mostrar y guardar el carrito de compras
 function guardarCarrito(){
     localStorage.setItem('carrito',JSON.stringify(carrito))
 }
 
-function agregarAlCarrito(idProducto, cantidad = 1){
-    const productoAgregar = Productos.buscarProductoId(productos, idProducto)
-    let enCarrito = false
-    if (cantidad !== 0){
-        for (let i = 0; i < carrito.length; i++) {
-            if (carrito[i].id === productoAgregar.id){
-                carrito[i].cant += cantidad
-                CalcYVal.calcularSubtotalProducto(carrito[i])
-                guardarCarrito()
-                actualizarTotales()
-                enCarrito = true
-            }
-        }
-        if (!enCarrito){
-            carrito.push(productoAgregar)
-            const iUltimoProducto = carrito.length-1
-            carrito[iUltimoProducto].cant += cantidad
-            CalcYVal.calcularSubtotalProducto(carrito[iUltimoProducto])
+function actualizarCarrito(){
+    $('#carrito').html('')
+    for (let i = 0; i < carrito.length; i++){
+        $('#carrito').append(
+            `<li class="producto-carrito" id="${carrito[i].id}">
+            <img src="media/img-productos/img-producto${carrito[i].id}.jpg" alt="${carrito[i].nombre} ${carrito[i].sexo}, color ${carrito[i].color}">
+                <ul class="datos">
+                    <li class="nombre">${productos[i].nombre} | ${productos[i].color} | ${productos[i].sexo}</li>
+                    <li class="precio">$${carrito[i].precio}</li>
+                    <li class="cantidades">cant.: ${carrito[i].cant}</li>
+                    <li class="subtotal-producto">Subtotal: ${carrito[i].subtotal}</li>
+                    <li class="eliminar"><button class="far fa-trash-alt" id="eliminar${carrito[i].id}"></button></li>
+                </ul>
+            </li>`
+        )
+
+        $(`#eliminar${carrito[i].id}`).on('click', (event) => {
+            event.preventDefault()
+            Carrito.removerDelCarrito(carrito[i].id, carrito)
             guardarCarrito()
             actualizarTotales()
-        }
+            actualizarCarrito()
+            actualizarProductos()
+        })
     }
+    $('#subtotal').html(`${subtotal}`)
+    $('#descuento').html(`${descuento}`)
+    $('#envio').html(`${envio}`)
+    $('#total').html(`${total}`)
 }
 
-function restarAlCarrito(idProducto){
-    const productoRestar = Productos.buscarProductoId(productos, idProducto)
-    for (let i = 0; i < carrito.length; i++) {
-        if (carrito[i].id === productoRestar.id && carrito[i].cant > 0){
-            carrito[i].cant--
-            carrito[i].subtotal -= carrito[i].precio
-            if (carrito[i].cant === 0){
-                removerDelCarrito(carrito[i].id)
-            }
-        }
-    }
-    guardarCarrito()
-}
-
-function vaciarCarrito(){
-    for (let i = 0; i < carrito.length; i++){
-        carrito[i].cant = 0
-        carrito[i].subtotal = 0
-    }
-    carrito.splice(0,carrito.length)
-    $('.tipo-envio').trigger('change')
-    actualizarTotales()
-    localStorage.removeItem('carrito')
-}
-
-function actualizarCarrito(){
-    actualizarTotales()
-    carritoHtml.innerHTML = ''
-    for (let i = 0; i < carrito.length; i++){
-        carritoHtml.innerHTML +=`
-        <li class="producto-carrito" id="${carrito[i].id}">
-        <img src="media/img-productos/img-producto${carrito[i].id}.jpg" alt="${carrito[i].nombre} ${carrito[i].sexo}, color ${carrito[i].color}">
-            <ul class="datos">
-                <li class="nombre">${productos[i].nombre} | ${productos[i].color} | ${productos[i].sexo}</li>
-                <li class="precio">$${carrito[i].precio}</li>
-                <li class="cantidades">cant.: ${carrito[i].cant}</li>
-                <li class="subtotal-producto">Subtotal: ${carrito[i].subtotal}</li>
-                <li class="eliminar" onclick="removerDelCarrito(${carrito[i].id})"><button class="far fa-trash-alt"></button></li>
-            </ul>
-        </li>`
-    }
-    totalesCarrito.innerHTML = `
-    <li id="subtotal-carrito">Subtotal: $${subtotal}</li>
-    <li id="descuento-carrito"><em>Descuento: -$${descuento}</em></li>
-    <li id="envio-carrito">Envío: +$${envio}</li>
-    <li id="total-carrito"><strong>Total: $${total}</strong></li>`
-    actualizarProductos()
-}
-
-function removerDelCarrito(idProducto){
-    const index = carrito.findIndex(producto => producto.id === idProducto)
-    if (index >= 0){
-        carrito[index].cant = 0
-        carrito[index].subtotal = 0
-        carrito.splice(index,1)
-    }
-    guardarCarrito()
-    actualizarCarrito()
-}
-
-// Funciones para mostrar y actualizar los productos en la página
+// Funciones para mostrar, filtrar y actualizar los productos en la pagina
 function agregarALista(lista, elementoAgregar){
     let enLista = false
     for ( let j = 0; j < lista.length; j++){
@@ -180,23 +128,31 @@ function mostrarProductos(){
 
         $(`#btn${productosFiltrado[i].id}`).on('click', (event) => {
             event.preventDefault()
-            agregarAlCarrito(parseInt(`${productosFiltrado[i].id}`))
+            Carrito.agregarAlCarrito(productos, parseInt(`${productosFiltrado[i].id}`), carrito)
+            guardarCarrito()
+            actualizarTotales()
             actualizarCarrito()
+            actualizarProductos()
         })
 
         $(`.btn-mas${productosFiltrado[i].id}`).on('click', (event) => {
             event.preventDefault()
-            agregarAlCarrito(parseInt(`${productosFiltrado[i].id}`))
+            Carrito.agregarAlCarrito(productos, parseInt(`${productosFiltrado[i].id}`), carrito)
+            guardarCarrito()
+            actualizarTotales()
             actualizarCarrito()
+            actualizarProductos()
         })
 
         $(`.btn-menos${productosFiltrado[i].id}`).on('click', (event) => {
             event.preventDefault()
-            restarAlCarrito(parseInt(`${productosFiltrado[i].id}`))
+            Carrito.restarAlCarrito(productos, parseInt(`${productosFiltrado[i].id}`), carrito)
+            guardarCarrito()
+            actualizarTotales()
             actualizarCarrito()
+            actualizarProductos()
         })
     }
-    actualizarCarrito()
 }
 
 function mostrarCatalogo(){
@@ -208,19 +164,9 @@ function mostrarCatalogo(){
     }
     //mostrarFiltro(colores, 'filtro-color')
     mostrarFiltro(sexos, 'filtro-sexo')
-    $(`#filtro-sexo`).change( (event) => {
-        event.preventDefault()
-        productosFiltrado = productos.filter( producto => {
-            if ($(`#filtro-sexo`).val() === ""){
-                return producto
-            }else{
-                return producto.sexo === $(`#filtro-sexo`).val()
-            }
-        })
-        mostrarProductos()
-    })
     mostrarProductos()
 }
+
 
 function toggleDisplayCant(cantidad, idProducto){
     if (cantidad === 0){
@@ -251,8 +197,10 @@ function actualizarProductos(){
 // Eventos
 vaciar.addEventListener('click',(event) => {
     event.preventDefault()
-    vaciarCarrito()
+    Carrito.vaciarCarrito(carrito)
+    actualizarTotales()
     actualizarCarrito()
+    actualizarProductos()
 })
 
 btnValidarCupon.addEventListener('click',(event) => {
@@ -262,6 +210,7 @@ btnValidarCupon.addEventListener('click',(event) => {
     if(cuponDescuentoAplicado){
         descuento = CalcYVal.calcularDescuento(subtotal)
     }
+    actualizarTotales()
     actualizarCarrito()
     inputCupon.value = ''
 })
@@ -269,9 +218,9 @@ btnValidarCupon.addEventListener('click',(event) => {
 $('.abrir-carrito, .cerrar-carrito').on('click', () => {
     $('#modal-carrito').slideToggle()
 })
-$('header').scroll(() => {
-    $('header').slideUp()
-})
+// $('header').scroll(() => {
+//     $('header').slideUp()
+// })
 
 $('.tipo-envio').on('change', () => {
     const value = $('.tipo-envio:checked').val()
@@ -280,5 +229,17 @@ $('.tipo-envio').on('change', () => {
     }else{
         esCABA = true
     }
+    actualizarTotales()
     actualizarCarrito()
+})
+$(`#filtro-sexo`).change( (event) => {
+    event.preventDefault()
+    productosFiltrado = productos.filter( producto => {
+        if ($(`#filtro-sexo`).val() === ""){
+            return producto
+        }else{
+            return producto.sexo === $(`#filtro-sexo`).val()
+        }
+    })
+    mostrarProductos()
 })

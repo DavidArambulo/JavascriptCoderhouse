@@ -76,7 +76,13 @@
             </div>
             <div class="detalle">
                 <h3>Detalle de tu carrito</h3>
-                <ul id="totales-carrito"></ul><button id="pagar-carrito">Pagar</button>
+                <ul id="totales-carrito">
+                    <li id="subtotal-carrito">Subtotal: $<span id="subtotal"></span></li>
+                    <li id="descuento-carrito"><em>Descuento: -$<span id="descuento"></span></em></li>
+                    <li id="envio-carrito">Envío: +$<span id="envio"></span></li>
+                    <li id="total-carrito"><strong>Total: $<span id="total"></span></strong></li>
+                </ul>
+                <button id="pagar-carrito">Pagar</button>
                 <label class="cupon" for="input-cupon">¿Tenés un cupón de descuento?</label>
                 <input id="input-cupon" type="text">
                 <button id="btn-validar-cupon">Validar Cupón</button>
