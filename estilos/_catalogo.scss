@@ -1,4 +1,19 @@
 .catalogo{
+    .heading-catalogo{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: $espacioTitulos;
+        h2{
+            margin: 0;
+        }
+        .filtros{
+            label{
+                margin-left: $espacioParrafos;
+            }
+        }
+    }
+
     #catalogo{
         display: flex;
         flex-wrap: wrap;

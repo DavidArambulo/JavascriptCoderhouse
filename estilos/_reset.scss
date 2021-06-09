@@ -51,10 +51,14 @@ button{
     display: none;
 }
 
+.no-items{
+    font-size: 1.25rem;
+    font-family: $fuenteTitulos;
+}
+
 @mixin card($ancho){
     width: $ancho;
     margin-bottom: $espacioParrafos;
-    //box-shadow: $sombra;
     background-color: $colorBaseBlanco;
     border: 1px solid rgba(48, 52, 64, 0.18);
 }

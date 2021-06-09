@@ -57,6 +57,11 @@ button:hover {
   display: none;
 }
 
+.no-items {
+  font-size: 1.25rem;
+  font-family: "Montserrat", sans-serif;
+}
+
 header {
   background: rgba(28, 33, 34, 0.85);
   -webkit-box-shadow: 0 8px 32px 0 rgba(48, 52, 63, 0.369);
@@ -329,6 +334,27 @@ footer .aclaracion {
 
 .carrito .contenido-modal .detalle #descuento-carrito, .carrito .contenido-modal .detalle .cupon {
   color: #30343F;
+}
+
+.catalogo .heading-catalogo {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-bottom: 1rem;
+}
+
+.catalogo .heading-catalogo h2 {
+  margin: 0;
+}
+
+.catalogo .heading-catalogo .filtros label {
+  margin-left: 0.5rem;
 }
 
 .catalogo #catalogo {

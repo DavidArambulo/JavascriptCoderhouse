@@ -43,15 +43,16 @@
     </section>
     
     <section class="contenedor catalogo">
-        <h2 id="productos">Nuestros productos</h2>
-        <!-- <label for="filtro-color">Color: </label>
-        <select id="filtro-color">
-            <option value="">Todos</option>
-        </select> -->
-        <label for="filtro-sexo">Sexo: </label>
-        <select id="filtro-sexo">
-            <option value="">Todos</option>
-        </select>
+        <div class="heading-catalogo">
+            <h2 id="productos">Nuestros productos</h2>
+            <div class="filtros">
+                <label for="filtro-color">Color: </label>
+                <select id="filtro-color"></select>
+        
+                <label for="filtro-sexo">Sexo: </label>
+                <select id="filtro-sexo"></select>
+            </div>
+        </div>
         <ul id="catalogo"></ul>
     </section>
 
@@ -66,12 +67,16 @@
             <div class="envio">
                 <h3>Envio</h3>
                 <div>
+                    <input name="envio" type="radio" id="envio-local" class="tipo-envio" value="local">
+                    <label for="envio-local">Retiro en el local <strong>SIN ENVIO</strong></label>
+                </div>
+                <div>
                     <input name="envio" type="radio" id="envio-caba" class="tipo-envio" value="caba">
                     <label for="envio-caba">Envío gratuio a <strong>CABA</strong></label>
                 </div>
                 <div>
                     <input name="envio" type="radio" id="envio-interior" class="tipo-envio" value="interior">
-                    <label for="envio-interior">Envío a domicilio a cualquier localidad del <strong>interior</strong></label>
+                    <label for="envio-interior">Envío a domicilio a cualquier localidad del <strong>Conourbano</strong></label>
                 </div>
             </div>
             <div class="detalle">

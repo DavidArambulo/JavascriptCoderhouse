@@ -1,6 +1,7 @@
 import * as CalcYVal from './calculosYValidaciones.js'
 import * as Productos from './productos.js'
 import * as Carrito from './carrito.js'
+import * as Maf from './maf.js'
 
 // Lista de productos
 let productos = []
@@ -18,10 +19,22 @@ $( document ).ready(() => {
                 Productos.crearProducto(productos, response[i].nombre, response[i].color, response[i].sexo, response[i].precio, response[i].id)
             }
             productosFiltrado = productos
-            mostrarCatalogo()
+
+            let colores = []
+            let sexos = []
+
+            for (let i = 0 ; i < productosFiltrado.length; i++){
+                Maf.agregarALista(colores, productosFiltrado[i].color)
+                Maf.agregarALista(sexos, productosFiltrado[i].sexo)
+            }
+
+            Maf.mostrarFiltro(colores, 'filtro-color')
+            Maf.mostrarFiltro(sexos, 'filtro-sexo')
+            mostrarProductos()
+
             actualizarTotales()
             actualizarCarrito()
-            actualizarProductos()
+            Maf.actualizarProductos(productos, carrito)
         }
     })
 })
@@ -54,19 +67,22 @@ const vaciar = document.getElementById('vaciar')
 const inputCupon = document.getElementById('input-cupon')
 const btnValidarCupon = document.getElementById('btn-validar-cupon')
 
-// Funciones para mostrar y guardar el carrito de compras
+// FUNCIONES PARA GUARDAR Y ACTUALIZAR EL CARRITO DE COMPRAS
 function guardarCarrito(){
     localStorage.setItem('carrito',JSON.stringify(carrito))
 }
 
 function actualizarCarrito(){
     $('#carrito').html('')
+    let hayProductos = false
     for (let i = 0; i < carrito.length; i++){
+        hayProductos = true
+        // CREACIÓN DE UN PRODUCTO EN EL CARRITO DE COMPRAS
         $('#carrito').append(
             `<li class="producto-carrito" id="${carrito[i].id}">
             <img src="media/img-productos/img-producto${carrito[i].id}.jpg" alt="${carrito[i].nombre} ${carrito[i].sexo}, color ${carrito[i].color}">
                 <ul class="datos">
-                    <li class="nombre">${productos[i].nombre} | ${productos[i].color} | ${productos[i].sexo}</li>
+                    <li class="nombre">${carrito[i].nombre} | ${carrito[i].color} | ${carrito[i].sexo}</li>
                     <li class="precio">$${carrito[i].precio}</li>
                     <li class="cantidades">cant.: ${carrito[i].cant}</li>
                     <li class="subtotal-producto">Subtotal: ${carrito[i].subtotal}</li>
@@ -75,45 +91,36 @@ function actualizarCarrito(){
             </li>`
         )
 
+        // EVENTOS DE LOS PRODUCTOS EN EL CARRITO DE COMPRAS
         $(`#eliminar${carrito[i].id}`).on('click', (event) => {
             event.preventDefault()
             Carrito.removerDelCarrito(carrito[i].id, carrito)
             guardarCarrito()
             actualizarTotales()
             actualizarCarrito()
-            actualizarProductos()
+            Maf.actualizarProductos(productos, carrito)
         })
     }
+    
+    if (!hayProductos){
+        $('#carrito').append('<li><p class="no-items">Todavía tu carrito esta vacío :(</p></li>')
+    }
+
+    // ACTUALIZACIÓN DEL DETALLE DEL CARRITO
     $('#subtotal').html(`${subtotal}`)
     $('#descuento').html(`${descuento}`)
     $('#envio').html(`${envio}`)
     $('#total').html(`${total}`)
 }
 
-// Funciones para mostrar, filtrar y actualizar los productos en la pagina
-function agregarALista(lista, elementoAgregar){
-    let enLista = false
-    for ( let j = 0; j < lista.length; j++){
-        if(lista[j] === elementoAgregar){
-            enLista = true
-        }
-    }
-    if (!enLista){
-        lista.push(elementoAgregar)
-    }
-}
 
-function mostrarFiltro(lista, nombre){
-    for (let i = 0; i < lista.length; i++) {
-        $(`#${nombre}`).append(
-            `<option value="${lista[i]}">${lista[i]}</option>`
-        )
-    }
-}
-
+// FUNCIÓN PARA MOSTRAR LOS PRODUCTOS EN LA PÁGINA
 function mostrarProductos(){
+    let hayProductos = false
     $('#catalogo').html('')
     for (let i = 0 ; i < productosFiltrado.length; i++){
+        hayProductos = true
+        // CREACIÓN DE UN PRODUCTO
         $('#catalogo').append(
             `<li class="producto">
                 <img src="media/img-productos/img-producto${productosFiltrado[i].id}.jpg" alt="${productosFiltrado[i].nombre} ${productosFiltrado[i].sexo}, color ${productosFiltrado[i].color}">
@@ -126,13 +133,14 @@ function mostrarProductos(){
             </li>`
         )
 
+        // EVENTOS DE LOS BOTONES DE PRODUCTOS
         $(`#btn${productosFiltrado[i].id}`).on('click', (event) => {
             event.preventDefault()
             Carrito.agregarAlCarrito(productos, parseInt(`${productosFiltrado[i].id}`), carrito)
             guardarCarrito()
             actualizarTotales()
             actualizarCarrito()
-            actualizarProductos()
+            Maf.actualizarProductos(productos, carrito)
         })
 
         $(`.btn-mas${productosFiltrado[i].id}`).on('click', (event) => {
@@ -141,7 +149,7 @@ function mostrarProductos(){
             guardarCarrito()
             actualizarTotales()
             actualizarCarrito()
-            actualizarProductos()
+            Maf.actualizarProductos(productos, carrito)
         })
 
         $(`.btn-menos${productosFiltrado[i].id}`).on('click', (event) => {
@@ -150,57 +158,21 @@ function mostrarProductos(){
             guardarCarrito()
             actualizarTotales()
             actualizarCarrito()
-            actualizarProductos()
+            Maf.actualizarProductos(productos, carrito)
         })
     }
-}
-
-function mostrarCatalogo(){
-    //let colores = []
-    let sexos = []
-    for (let i = 0 ; i < productos.length; i++){
-        //agregarALista(colores, productos[i].color)
-        agregarALista(sexos, productos[i].sexo)
-    }
-    //mostrarFiltro(colores, 'filtro-color')
-    mostrarFiltro(sexos, 'filtro-sexo')
-    mostrarProductos()
-}
-
-
-function toggleDisplayCant(cantidad, idProducto){
-    if (cantidad === 0){
-        $(`#cant-producto${idProducto}`).addClass('deshabilitado')
-        $(`#btn${idProducto}`).removeClass('deshabilitado')
-    }else{
-        $(`#cant-producto${idProducto}`).removeClass('deshabilitado')
-        $(`#btn${idProducto}`).addClass('deshabilitado')
+    if(!hayProductos){
+        $('#catalogo').append('<li><p class="no-items">Lo sentimos no hay productos con esas especificaciones</p></li>')
     }
 }
 
-function actualizarProductos(){
-    for (let i = 0 ; i < productos.length; i++){
-        let cant = 0
-        toggleDisplayCant(productos[i].cant, productos[i].id)
-        for (let j = 0 ; j < carrito.length; j++){
-            if (productos[i].id === carrito[j].id){
-                cant = carrito[j].cant
-                toggleDisplayCant(carrito[j].cant, productos[i].id)
-            }
-        }
-        $(`#cant${productos[i].id}`).html(
-            `${cant}`
-        )
-    }
-}
-
-// Eventos
+// EVENTOS
 vaciar.addEventListener('click',(event) => {
     event.preventDefault()
     Carrito.vaciarCarrito(carrito)
     actualizarTotales()
     actualizarCarrito()
-    actualizarProductos()
+    Maf.actualizarProductos(productos, carrito)
 })
 
 btnValidarCupon.addEventListener('click',(event) => {
@@ -218,9 +190,6 @@ btnValidarCupon.addEventListener('click',(event) => {
 $('.abrir-carrito, .cerrar-carrito').on('click', () => {
     $('#modal-carrito').slideToggle()
 })
-// $('header').scroll(() => {
-//     $('header').slideUp()
-// })
 
 $('.tipo-envio').on('change', () => {
     const value = $('.tipo-envio:checked').val()
@@ -232,15 +201,17 @@ $('.tipo-envio').on('change', () => {
     actualizarTotales()
     actualizarCarrito()
 })
+
+$(`#filtro-color`).change( (event) => {
+    event.preventDefault()
+    productosFiltrado = Productos.filtrarProductos(productos)
+    mostrarProductos()
+    Maf.actualizarProductos(productos, carrito)
+})
+
 $(`#filtro-sexo`).change( (event) => {
     event.preventDefault()
-    productosFiltrado = productos.filter( producto => {
-        if ($(`#filtro-sexo`).val() === ""){
-            return producto
-        }else{
-            return producto.sexo === $(`#filtro-sexo`).val()
-        }
-    })
+    productosFiltrado = Productos.filtrarProductos(productos)
     mostrarProductos()
-    actualizarProductos()
+    Maf.actualizarProductos(productos, carrito)
 })

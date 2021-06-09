@@ -26,3 +26,19 @@ export function buscarProductoId(productos, id){
 
     return productoABuscar
 }
+
+// Función para filtrar los productos
+export function filtrarProductos(productos){
+    const filtrado = productos.filter( producto => {
+        if ($(`#filtro-sexo`).val() === "" && $(`#filtro-color`).val() === ""){
+            return producto
+        }else if ($(`#filtro-sexo`).val() !== "" && $(`#filtro-color`).val() === ""){
+            return producto.sexo === $(`#filtro-sexo`).val()
+        }else if ($(`#filtro-sexo`).val() === "" && $(`#filtro-color`).val() !== ""){
+            return producto.color === $(`#filtro-color`).val()
+        }else{
+            return producto.sexo === $(`#filtro-sexo`).val() && producto.color === $(`#filtro-color`).val()
+        }
+    })
+    return filtrado
+}
