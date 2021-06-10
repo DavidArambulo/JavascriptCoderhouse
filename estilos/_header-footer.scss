@@ -3,16 +3,13 @@ header{
     @include fondoGlassmorph($colorBaseNegroTransparente);
     position: sticky;
     top: 0;
-    .nav{
+    padding: $espacioParrafos 0;
+    border: 0;
+    z-index: 1;
+    div{
         display: flex;
         justify-content: space-between;
         align-items: center;
-        .logo{
-            margin: 0;
-            a{
-                font-size: $sizeLogo;
-            }
-        }
         a{
             color: $colorBaseBlanco;
             font-family: $fuenteTitulos;
@@ -22,9 +19,76 @@ header{
                 color: $colorSecundario;
             }
         }
-        .nav-list{
-            display: flex;
-            gap: $espacioTitulos;
+        .logo{
+            margin: 0;
+            a{
+                font-size: $sizeLogo;
+            }
+        }
+        #open-nav{
+            display: none;
+            @media only screen and (max-width: 900px){
+                display: block;
+            }
+        }
+        .nav{
+            .nav-list{
+                display: flex;
+                gap: $espacioTitulos;
+            }
+            #close-nav{
+                display: none;
+                @media only screen and (max-width: 900px){
+                    display: block;
+                }
+            }
+            div{
+                display: none;
+            }
+            
+            @media only screen and (max-width: 900px){
+                position: fixed;
+                top: 0;
+                left: -100%;
+                height: 100vh;
+                width: 60%;
+                max-width: 205px;
+                padding: 1.5rem 0 1.5rem 1.5rem;
+                display: flex;
+                flex-direction: column;
+                gap: 0;
+                justify-content: space-between;
+                transition: left 0.5s;
+                @include fondoGlassmorph($colorBaseNegroTransparente);
+                border: 0px;
+
+                .nav-list{
+                    flex-direction: column;
+                }
+                &#menu:target{
+                    left: 0;
+                }
+
+                div{
+                    display: flex;
+                    flex-direction: column;
+                    align-items: start;
+                    gap: $espacioParrafos;
+                    .lista-contacto{
+                        color: $colorBaseBlanco;
+                        li{
+                            font-size: 0.8rem;
+                        }
+                    }
+                    .redes{
+                        display: flex;
+                        gap: $espacioTitulos;
+                        i{
+                            font-size: 2rem;
+                        }
+                    }
+                }
+            }
         }
     }
 }
@@ -37,12 +101,12 @@ footer{
     }
     .informacion{
         align-items: center;
+        padding: $espacioTitulos 0;
         .contacto{
             display: flex;
-            gap: $espacioTitulos;
-            align-items: center;
+            gap: $espacioSeccion;
             h2{
-                margin: 0;
+                margin: 0 0 $espacioParrafos 0;
             }
             .logo{
                 display: inline-block;
@@ -50,11 +114,26 @@ footer{
                 font-size: $sizeLogo;
                 font-family: $fuenteTitulos;
                 font-weight: 500;
+                padding-top: 0.5rem;
+            }
+            .lista-contacto{
+                .item-contacto{
+                    margin-bottom: $espacioParrafosReducido;
+                }
+                @media only screen and (max-width: 900px){
+                    display: none;
+                }
             }
         }
         .redes{
             font-size: $sizeLogo;
             gap: $espacioTitulos;
+            @media only screen and (max-width: 900px){
+                display: none;
+            }
+        }
+        @media only screen and (max-width: 900px){
+            justify-content: center;
         }
     }
     .aclaracion{

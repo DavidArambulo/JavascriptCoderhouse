@@ -63,9 +63,11 @@ button{
     border: 1px solid rgba(48, 52, 64, 0.18);
 }
 
-@mixin fondoGlassmorph($color: rgba(255, 255, 255, 0.149)){
+@mixin fondoGlassmorph($color: rgba(255, 255, 255, 0.149), $siSombra: true){
     background: $color;
-    box-shadow: $sombra;
+    @if $siSombra {
+        box-shadow: $sombra;
+    }
     backdrop-filter: blur( 7.0px );
     -webkit-backdrop-filter: blur( 7.0px );
     border: 1px solid rgba( 255, 255, 255, 0.18 );

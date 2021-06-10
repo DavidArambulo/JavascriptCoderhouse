@@ -1,0 +1,25 @@
+.nosotros{
+    img{
+        width: 100%;
+        margin-bottom: $espacioTitulos;
+    }
+    .objetivos{
+        list-style-position: inside;
+        list-style-image: url(../media/reciclar.png);
+        padding-left: $espacioSeccion;
+        .objetivo{
+            margin-bottom: $espacioParrafosReducido;
+        }
+    }
+}
+
+.retiro{
+    ul{
+        list-style-image: url(../media/camion.png);
+        list-style-position: inside;
+        padding-left: $espacioSeccion;
+        .detalle-retiro{
+            margin-bottom: $espacioParrafosReducido;
+        }
+    }
+}

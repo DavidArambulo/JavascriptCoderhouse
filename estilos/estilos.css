@@ -63,7 +63,7 @@ button:hover {
 }
 
 header {
-  background: rgba(28, 33, 34, 0.85);
+  background: rgba(28, 33, 34, 0.9);
   -webkit-box-shadow: 0 8px 32px 0 rgba(48, 52, 63, 0.369);
           box-shadow: 0 8px 32px 0 rgba(48, 52, 63, 0.369);
   backdrop-filter: blur(7px);
@@ -72,9 +72,12 @@ header {
   position: -webkit-sticky;
   position: sticky;
   top: 0;
+  padding: 0.5rem 0;
+  border: 0;
+  z-index: 1;
 }
 
-header .nav {
+header div {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -86,30 +89,123 @@ header .nav {
           align-items: center;
 }
 
-header .nav .logo {
-  margin: 0;
-}
-
-header .nav .logo a {
-  font-size: 2rem;
-}
-
-header .nav a {
+header div a {
   color: #fff;
   font-family: "Montserrat", sans-serif;
   font-weight: 500;
   font-size: 1.08rem;
 }
 
-header .nav a:hover {
+header div a:hover {
   color: #52B788;
 }
 
-header .nav .nav-list {
+header div .logo {
+  margin: 0;
+}
+
+header div .logo a {
+  font-size: 2rem;
+}
+
+header div #open-nav {
+  display: none;
+}
+
+@media only screen and (max-width: 900px) {
+  header div #open-nav {
+    display: block;
+  }
+}
+
+header div .nav .nav-list {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   gap: 1rem;
+}
+
+header div .nav #close-nav {
+  display: none;
+}
+
+@media only screen and (max-width: 900px) {
+  header div .nav #close-nav {
+    display: block;
+  }
+}
+
+header div .nav div {
+  display: none;
+}
+
+@media only screen and (max-width: 900px) {
+  header div .nav {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    height: 100vh;
+    width: 60%;
+    max-width: 205px;
+    padding: 1.5rem 0 1.5rem 1.5rem;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    gap: 0;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-transition: left 0.5s;
+    transition: left 0.5s;
+    background: rgba(28, 33, 34, 0.9);
+    -webkit-box-shadow: 0 8px 32px 0 rgba(48, 52, 63, 0.369);
+            box-shadow: 0 8px 32px 0 rgba(48, 52, 63, 0.369);
+    backdrop-filter: blur(7px);
+    -webkit-backdrop-filter: blur(7px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border: 0px;
+  }
+  header div .nav .nav-list {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  header div .nav#menu:target {
+    left: 0;
+  }
+  header div .nav div {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: start;
+    gap: 0.5rem;
+  }
+  header div .nav div .lista-contacto {
+    color: #fff;
+  }
+  header div .nav div .lista-contacto li {
+    font-size: 0.8rem;
+  }
+  header div .nav div .redes {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    gap: 1rem;
+  }
+  header div .nav div .redes i {
+    font-size: 2rem;
+  }
 }
 
 footer .informacion, footer .copyright, footer .redes {
@@ -125,20 +221,18 @@ footer .informacion {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  padding: 1rem 0;
 }
 
 footer .informacion .contacto {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  gap: 1rem;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  gap: 2rem;
 }
 
 footer .informacion .contacto h2 {
-  margin: 0;
+  margin: 0 0 0.5rem 0;
 }
 
 footer .informacion .contacto .logo {
@@ -147,6 +241,17 @@ footer .informacion .contacto .logo {
   font-size: 2rem;
   font-family: "Montserrat", sans-serif;
   font-weight: 500;
+  padding-top: 0.5rem;
+}
+
+footer .informacion .contacto .lista-contacto .item-contacto {
+  margin-bottom: 0.15rem;
+}
+
+@media only screen and (max-width: 900px) {
+  footer .informacion .contacto .lista-contacto {
+    display: none;
+  }
 }
 
 footer .informacion .redes {
@@ -154,10 +259,49 @@ footer .informacion .redes {
   gap: 1rem;
 }
 
+@media only screen and (max-width: 900px) {
+  footer .informacion .redes {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  footer .informacion {
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+}
+
 footer .aclaracion {
   font-size: 0.85rem;
   font-weight: 100;
   color: #30343F;
+}
+
+.nosotros img {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.nosotros .objetivos {
+  list-style-position: inside;
+  list-style-image: url(../media/reciclar.png);
+  padding-left: 2rem;
+}
+
+.nosotros .objetivos .objetivo {
+  margin-bottom: 0.15rem;
+}
+
+.retiro ul {
+  list-style-image: url(../media/camion.png);
+  list-style-position: inside;
+  padding-left: 2rem;
+}
+
+.retiro ul .detalle-retiro {
+  margin-bottom: 0.15rem;
 }
 
 .burbuja {
@@ -357,6 +501,15 @@ footer .aclaracion {
   margin-left: 0.5rem;
 }
 
+@media only screen and (max-width: 600px) {
+  .catalogo .heading-catalogo {
+    display: unset;
+  }
+  .catalogo .heading-catalogo .filtros {
+    margin-bottom: 1rem;
+  }
+}
+
 .catalogo #catalogo {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -405,5 +558,30 @@ footer .aclaracion {
   width: 100%;
   margin-top: auto;
   margin-bottom: 0;
+}
+
+@media only screen and (max-width: 900px) {
+  .catalogo #catalogo .producto {
+    width: 30%;
+    margin-bottom: 0.5rem;
+    background-color: #fff;
+    border: 1px solid rgba(48, 52, 64, 0.18);
+    margin-right: 3%;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .catalogo #catalogo {
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+  }
+  .catalogo #catalogo .producto {
+    width: 45%;
+    margin-bottom: 0.5rem;
+    background-color: #fff;
+    border: 1px solid rgba(48, 52, 64, 0.18);
+    margin-right: 0;
+  }
 }
 /*# sourceMappingURL=estilos.css.map */

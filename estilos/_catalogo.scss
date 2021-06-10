@@ -12,6 +12,12 @@
                 margin-left: $espacioParrafos;
             }
         }
+        @media only screen and (max-width: 600px){
+            display: unset;
+            .filtros{
+                margin-bottom: $espacioTitulos;
+            }
+        }
     }
 
     #catalogo{
@@ -40,7 +46,19 @@
                     margin-bottom: 0;
                 }
             }
-            
+        }
+        @media only screen and (max-width: 900px){
+            .producto{
+                @include card (30%);
+                margin-right: 3%;
+            }
+        }
+        @media only screen and (max-width: 600px){
+            justify-content: space-between;
+            .producto{
+                @include card (45%);
+                margin-right: 0;
+            }
         }
     }
 }
