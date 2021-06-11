@@ -7,12 +7,34 @@
     &.abrir-carrito{
         position: fixed;
         bottom: 1rem;
-        right: 0.25rem;
+        right: 0.4rem;
         font-size: $sizeLogo;
     }
     &.cerrar-carrito{
         right: 5%;
         font-size: 1rem;
+    }
+}
+.burbuja-cant{
+    display: none;
+    align-items: center;
+
+    position: fixed;
+    bottom: 3rem;
+    right: 0.4rem;
+
+    width: 1.2rem;
+    height: 1.2rem;
+    border-radius: 50%;
+    background-color: $colorPrincipal;
+
+    color: $colorBaseBlanco;
+    font-size: 0.8rem;
+
+    cursor: pointer;
+    z-index: 2;
+    #cant-total-productos{
+        margin: auto;
     }
 }
 

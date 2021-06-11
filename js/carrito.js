@@ -51,3 +51,11 @@ export function removerDelCarrito(idProducto, carrito){
     }
     
 }
+
+export function contarProductos(carrito){
+    let cant = 0
+    for (let i = 0; i < carrito.length; i++){
+        cant += carrito[i].cant
+    }
+    return cant
+}

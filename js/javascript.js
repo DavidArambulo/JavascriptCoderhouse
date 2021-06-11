@@ -48,6 +48,7 @@ if (!carrito){
     carrito = []
 }
 
+let cantTotalProductos = 0
 let subtotal = 0
 let descuento = 0
 let envio = 0
@@ -101,7 +102,7 @@ function actualizarCarrito(){
             Maf.actualizarProductos(productos, carrito)
         })
     }
-    
+    // COMPRUEBO SI HAY SE MOSTRARON PRODUCTOS Y DE NO SER ASI MUESTRO POR PANTALLA
     if (!hayProductos){
         $('#carrito').append('<li><p class="no-items">Todavía tu carrito esta vacío :(</p></li>')
     }
@@ -111,6 +112,15 @@ function actualizarCarrito(){
     $('#descuento').html(`${descuento}`)
     $('#envio').html(`${envio}`)
     $('#total').html(`${total}`)
+
+    // ACTUALIZACIÓN DEL MARCADOR DE CANTIDAD DE PRODUCTOS
+    cantTotalProductos = Carrito.contarProductos(carrito)
+    $('#cant-total-productos').html(`${cantTotalProductos}`)
+    if (cantTotalProductos > 0){
+        $('.burbuja-cant').css("display","flex")
+    }else{
+        $('.burbuja-cant').css("display","none")
+    }
 }
 
 
@@ -187,7 +197,7 @@ btnValidarCupon.addEventListener('click',(event) => {
     inputCupon.value = ''
 })
 
-$('.abrir-carrito, .cerrar-carrito').on('click', () => {
+$('.abrir-carrito, .cerrar-carrito, .burbuja-cant').on('click', () => {
     $('#modal-carrito').slideToggle()
 })
 
