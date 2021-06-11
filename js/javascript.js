@@ -84,9 +84,9 @@ function actualizarCarrito(){
                 <ul class="datos">
                     <li class="nombre">${carrito[i].nombre} | ${carrito[i].color} | ${carrito[i].sexo}</li>
                     <li class="precio">$${carrito[i].precio}</li>
-                    <li class="cantidades">cant.: ${carrito[i].cant}</li>
+                    <li class="cantidades">x${carrito[i].cant}</li>
                     <li class="subtotal-producto">Subtotal: ${carrito[i].subtotal}</li>
-                    <li class="eliminar"><button class="far fa-trash-alt" id="eliminar${carrito[i].id}"></button></li>
+                    <li class="eliminar"><button class="button" id="eliminar${carrito[i].id}"><i class="far fa-trash-alt"></i></button></li>
                 </ul>
             </li>`
         )
@@ -127,8 +127,8 @@ function mostrarProductos(){
                 <div class="datos-producto">
                     <h3 class="nombre-producto">${productosFiltrado[i].nombre} | ${productosFiltrado[i].color} | ${productosFiltrado[i].sexo}</h3>
                     <p class="precio-producto">$${productosFiltrado[i].precio}</p>
-                    <p id="cant-producto${productosFiltrado[i].id}" class="cant-producto">Cant.: <button class="btn-menos${productosFiltrado[i].id}"><i class="fas fa-minus"></i></button> <span id="cant${productosFiltrado[i].id}">${productosFiltrado[i].cant}</span> <button class="btn-mas${productosFiltrado[i].id}"><i class="fas fa-plus"></i></button></p>
-                    <button id="btn${productosFiltrado[i].id}" class="btn-agregar">Agregar al Carrito</button>
+                    <p id="cant-producto${productosFiltrado[i].id}" class="cant-producto">Cant.: <button class="btn-menos btn-menos${productosFiltrado[i].id} button"><i class="fas fa-minus"></i></button> <span class="cant-num" id="cant${productosFiltrado[i].id}">${productosFiltrado[i].cant}</span> <button class="btn-mas btn-mas${productosFiltrado[i].id} button"><i class="fas fa-plus"></i></button></p>
+                    <button id="btn${productosFiltrado[i].id}" class="btn-agregar button button-principal">Agregar al Carrito</button>
                 </div>
             </li>`
         )

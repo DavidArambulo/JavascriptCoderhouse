@@ -41,9 +41,31 @@
                     text-transform: capitalize;
                 }
                 .btn-agregar, .cant-producto{
+                    font-size: 85%;
                     width: 100%;
                     margin-top: auto;
                     margin-bottom: 0;
+                    overflow: hidden;
+                }
+                .cant-producto{
+                    .cant-num{
+                        font-weight: 700;
+                        text-decoration: 2px underline $colorPrincipal;
+                    }
+                    .btn-menos{
+                        width: 1.5rem;
+                        padding: 0.3rem 0.25rem 0.25rem 0.4rem;
+                        font-size: 85%;
+                        border-bottom-left-radius: 45px;
+                        border-top-left-radius: 45px;
+                    }
+                    .btn-mas{
+                        width: 1.5rem;
+                        padding: 0.3rem 0.5rem 0.25rem 0.25rem;
+                        font-size: 85%;
+                        border-bottom-right-radius: 45px;
+                        border-top-right-radius: 45px;
+                    }
                 }
             }
         }
@@ -56,7 +78,7 @@
         @media only screen and (max-width: 600px){
             justify-content: space-between;
             .producto{
-                @include card (45%);
+                @include card (49%);
                 margin-right: 0;
             }
         }

@@ -4,17 +4,15 @@
     border-radius: 50px;
     z-index: 1;
     @include fondoGlassmorph();
-    position: fixed;
     &.abrir-carrito{
+        position: fixed;
         bottom: 1rem;
         right: 0.25rem;
         font-size: $sizeLogo;
     }
     &.cerrar-carrito{
-        position: sticky;
-        top: 1rem;
+        right: 5%;
         font-size: 1rem;
-        margin-left: 95%;
     }
 }
 
@@ -24,7 +22,7 @@
     max-width: 800px;
     position: fixed;
     bottom: 0.75rem;
-    right: 2rem;
+    right: 5%;
     overflow: auto;
     display: none;
     @include fondoGlassmorph();
@@ -32,6 +30,10 @@
         width: 95%;
         margin-left: auto;
         margin-right: auto;
+        padding: $espacioParrafos;
+        .cerrar-carrito{
+            position: fixed;
+        }
         .producto-carrito{
             @include card(100%);
             display: flex;
@@ -46,7 +48,7 @@
                 grid-template-columns: 1fr 0.5fr 1fr 0.5fr;
                 grid-template-rows: repeat(2, 1fr);
                 grid-template-areas: 
-                "nombre cant sub eliminar"
+                "nombre nombre nombre nombre"
                 "precio cant sub eliminar";
 
                 .nombre{
@@ -73,8 +75,17 @@
                     grid-area: eliminar;
                 }
             }
+            @media only screen and (max-width: 600px){
+                img{
+                    display: none;
+                }
+                .datos{
+                    gap: 0;
+                }
+            }
         }
         .envio{
+            padding: $espacioParrafos;
             margin-top: $espacioTitulos;
             @include fondoGlassmorph();
             h3{
@@ -83,6 +94,7 @@
             }
         }
         .detalle{
+            padding: $espacioParrafos;
             margin-top: $espacioTitulos;
             @include fondoGlassmorph();
             h3{
@@ -93,7 +105,7 @@
                 display: block;
                 margin-left: auto;
                 margin-right: auto;
-                width: 95%;
+                width: 100%;
                 padding: $espacioParrafosReducido;
                 margin-bottom: $espacioParrafos;
             }
@@ -109,8 +121,9 @@
             #descuento-carrito, .cupon{
                 color: $colorBaseGris;
             }
-            
         }
     }
-    
+    @media only screen and (max-width: 600px){
+        width: 90%;
+    }
 }

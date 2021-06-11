@@ -34,16 +34,45 @@ a {
   color: #1B2021;
 }
 
-button {
-  -webkit-transition: -webkit-transform 0.1s;
-  transition: -webkit-transform 0.1s;
-  transition: transform 0.1s;
-  transition: transform 0.1s, -webkit-transform 0.1s;
+a:hover {
+  color: #BA3365;
 }
 
-button:hover {
-  -webkit-transform: scale(1.05);
-          transform: scale(1.05);
+button {
+  all: revert;
+  font-family: inherit;
+  font-size: 100%;
+  line-height: 1.15;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+}
+
+.button {
+  border: 1px #BA3365 solid;
+  border-radius: 0;
+  background: #fff;
+  color: #BA3365;
+  font-size: 1rem;
+  line-height: 1.2;
+  white-space: nowrap;
+  text-decoration: none;
+  padding: 0.25rem 0.5rem;
+  -webkit-transition: background-color 0.15s;
+  transition: background-color 0.15s;
+}
+
+.button:hover {
+  background-color: #ffd9da;
+}
+
+.button.button-principal {
+  background: #BA3365;
+  color: #fff;
+}
+
+.button.button-principal:hover {
+  background-color: #52B788;
 }
 
 .contenedor {
@@ -97,7 +126,7 @@ header div a {
 }
 
 header div a:hover {
-  color: #52B788;
+  color: #BA3365;
 }
 
 header div .logo {
@@ -259,6 +288,10 @@ footer .informacion .redes {
   gap: 1rem;
 }
 
+footer .informacion .redes a:hover {
+  color: #BA3365;
+}
+
 @media only screen and (max-width: 900px) {
   footer .informacion .redes {
     display: none;
@@ -314,21 +347,18 @@ footer .aclaracion {
   backdrop-filter: blur(7px);
   -webkit-backdrop-filter: blur(7px);
   border: 1px solid rgba(255, 255, 255, 0.18);
-  position: fixed;
 }
 
 .burbuja.abrir-carrito {
+  position: fixed;
   bottom: 1rem;
   right: 0.25rem;
   font-size: 2rem;
 }
 
 .burbuja.cerrar-carrito {
-  position: -webkit-sticky;
-  position: sticky;
-  top: 1rem;
+  right: 5%;
   font-size: 1rem;
-  margin-left: 95%;
 }
 
 .carrito {
@@ -337,7 +367,7 @@ footer .aclaracion {
   max-width: 800px;
   position: fixed;
   bottom: 0.75rem;
-  right: 2rem;
+  right: 5%;
   overflow: auto;
   display: none;
   background: rgba(255, 255, 255, 0.149);
@@ -352,6 +382,11 @@ footer .aclaracion {
   width: 95%;
   margin-left: auto;
   margin-right: auto;
+  padding: 0.5rem;
+}
+
+.carrito .contenido-modal .cerrar-carrito {
+  position: fixed;
 }
 
 .carrito .contenido-modal .producto-carrito {
@@ -380,12 +415,13 @@ footer .aclaracion {
       grid-template-columns: 1fr 0.5fr 1fr 0.5fr;
   -ms-grid-rows: (1fr)[2];
       grid-template-rows: repeat(2, 1fr);
-      grid-template-areas: "nombre cant sub eliminar" "precio cant sub eliminar";
+      grid-template-areas: "nombre nombre nombre nombre" "precio cant sub eliminar";
 }
 
 .carrito .contenido-modal .producto-carrito .datos .nombre {
   -ms-grid-row: 1;
   -ms-grid-column: 1;
+  -ms-grid-column-span: 4;
   grid-area: nombre;
   text-transform: capitalize;
   font-size: 1.2rem;
@@ -405,27 +441,34 @@ footer .aclaracion {
 }
 
 .carrito .contenido-modal .producto-carrito .datos .cantidades {
-  -ms-grid-row: 1;
-  -ms-grid-row-span: 2;
+  -ms-grid-row: 2;
   -ms-grid-column: 2;
   grid-area: cant;
 }
 
 .carrito .contenido-modal .producto-carrito .datos .subtotal-producto {
-  -ms-grid-row: 1;
-  -ms-grid-row-span: 2;
+  -ms-grid-row: 2;
   -ms-grid-column: 3;
   grid-area: sub;
 }
 
 .carrito .contenido-modal .producto-carrito .datos .eliminar {
-  -ms-grid-row: 1;
-  -ms-grid-row-span: 2;
+  -ms-grid-row: 2;
   -ms-grid-column: 4;
   grid-area: eliminar;
 }
 
+@media only screen and (max-width: 600px) {
+  .carrito .contenido-modal .producto-carrito img {
+    display: none;
+  }
+  .carrito .contenido-modal .producto-carrito .datos {
+    gap: 0;
+  }
+}
+
 .carrito .contenido-modal .envio {
+  padding: 0.5rem;
   margin-top: 1rem;
   background: rgba(255, 255, 255, 0.149);
   -webkit-box-shadow: 0 8px 32px 0 rgba(48, 52, 63, 0.369);
@@ -441,6 +484,7 @@ footer .aclaracion {
 }
 
 .carrito .contenido-modal .detalle {
+  padding: 0.5rem;
   margin-top: 1rem;
   background: rgba(255, 255, 255, 0.149);
   -webkit-box-shadow: 0 8px 32px 0 rgba(48, 52, 63, 0.369);
@@ -459,7 +503,7 @@ footer .aclaracion {
   display: block;
   margin-left: auto;
   margin-right: auto;
-  width: 95%;
+  width: 100%;
   padding: 0.15rem;
   margin-bottom: 0.5rem;
 }
@@ -478,6 +522,12 @@ footer .aclaracion {
 
 .carrito .contenido-modal .detalle #descuento-carrito, .carrito .contenido-modal .detalle .cupon {
   color: #30343F;
+}
+
+@media only screen and (max-width: 600px) {
+  .carrito {
+    width: 90%;
+  }
 }
 
 .catalogo .heading-catalogo {
@@ -555,9 +605,33 @@ footer .aclaracion {
 }
 
 .catalogo #catalogo .producto .datos-producto .btn-agregar, .catalogo #catalogo .producto .datos-producto .cant-producto {
+  font-size: 85%;
   width: 100%;
   margin-top: auto;
   margin-bottom: 0;
+  overflow: hidden;
+}
+
+.catalogo #catalogo .producto .datos-producto .cant-producto .cant-num {
+  font-weight: 700;
+  -webkit-text-decoration: 2px underline #BA3365;
+          text-decoration: 2px underline #BA3365;
+}
+
+.catalogo #catalogo .producto .datos-producto .cant-producto .btn-menos {
+  width: 1.5rem;
+  padding: 0.3rem 0.25rem 0.25rem 0.4rem;
+  font-size: 85%;
+  border-bottom-left-radius: 45px;
+  border-top-left-radius: 45px;
+}
+
+.catalogo #catalogo .producto .datos-producto .cant-producto .btn-mas {
+  width: 1.5rem;
+  padding: 0.3rem 0.5rem 0.25rem 0.25rem;
+  font-size: 85%;
+  border-bottom-right-radius: 45px;
+  border-top-right-radius: 45px;
 }
 
 @media only screen and (max-width: 900px) {
@@ -577,7 +651,7 @@ footer .aclaracion {
             justify-content: space-between;
   }
   .catalogo #catalogo .producto {
-    width: 45%;
+    width: 49%;
     margin-bottom: 0.5rem;
     background-color: #fff;
     border: 1px solid rgba(48, 52, 64, 0.18);

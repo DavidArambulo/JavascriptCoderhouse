@@ -31,14 +31,48 @@ p, h3{
 a{
     text-decoration: none;
     color: $colorBaseNegro;
+    &:hover{
+        color: $colorPrincipal;
+    }
 }
 
 button{
-    transition: transform 0.1s;
+    all: revert;
+    font-family: inherit;
+    font-size: 100%;
+    line-height: 1.15;
+    padding: 0;
+    margin: 0;
+    // transition: transform 0.1s;
+    // &:hover{
+    //     transform: scale(1.05);
+    // }
+    cursor: pointer;
+}
+
+.button {
+    border: 1px $colorPrincipal solid;
+    border-radius: 0;
+    background: $colorBaseBlanco;
+    color: $colorPrincipal;
+    font-size: 1rem;
+    line-height: 1.2;
+    white-space: nowrap;
+    text-decoration: none;
+    padding: 0.25rem 0.5rem;
+    transition: background-color 0.15s;
     &:hover{
-        transform: scale(1.05);
+        background-color: $colorCompClaro;
+    }
+    &.button-principal{
+        background: $colorPrincipal;
+        color: $colorBaseBlanco;
+        &:hover{
+            background-color: $colorSecundario;
+        }
     }
 }
+
 
 .contenedor{
     width: 90%;

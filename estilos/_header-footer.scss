@@ -16,7 +16,7 @@ header{
             font-weight: 500;
             font-size: 1.08rem;
             &:hover{
-                color: $colorSecundario;
+                color: $colorPrincipal;
             }
         }
         .logo{
@@ -128,6 +128,9 @@ footer{
         .redes{
             font-size: $sizeLogo;
             gap: $espacioTitulos;
+            a:hover{
+                color: $colorPrincipal;
+            }
             @media only screen and (max-width: 900px){
                 display: none;
             }
