@@ -35,6 +35,8 @@ $( document ).ready(() => {
             actualizarTotales()
             actualizarCarrito()
             Maf.actualizarProductos(productos, carrito)
+
+            $('body').fadeIn()
         }
     })
 })
@@ -59,6 +61,9 @@ const montoEnvioGratis = 5000
 
 function actualizarTotales(){
     subtotal = CalcYVal.calcularSubtotal(carrito)
+    if (cuponDescuentoAplicado){
+        descuento = CalcYVal.calcularDescuento(subtotal)
+    }
     envio = CalcYVal.validarEnvioGratis(subtotal, montoEnvioGratis, esCABA)
     total = CalcYVal.calcularTotal(descuento, subtotal, envio)
 }
@@ -133,7 +138,7 @@ function mostrarProductos(){
         // CREACIÓN DE UN PRODUCTO
         $('#catalogo').append(
             `<li class="producto">
-                <img src="media/img-productos/img-producto${productosFiltrado[i].id}.jpg" alt="${productosFiltrado[i].nombre} ${productosFiltrado[i].sexo}, color ${productosFiltrado[i].color}">
+                <img id="img-producto${productosFiltrado[i].id}" src="media/img-productos/img-producto${productosFiltrado[i].id}.jpg" alt="${productosFiltrado[i].nombre} ${productosFiltrado[i].sexo}, color ${productosFiltrado[i].color}">
                 <div class="datos-producto">
                     <h3 class="nombre-producto">${productosFiltrado[i].nombre} | ${productosFiltrado[i].color} | ${productosFiltrado[i].sexo}</h3>
                     <p class="precio-producto">$${productosFiltrado[i].precio}</p>
@@ -170,6 +175,18 @@ function mostrarProductos(){
             actualizarCarrito()
             Maf.actualizarProductos(productos, carrito)
         })
+
+        // VISTA PREVIA IMAGEN
+        $(`#img-producto${productosFiltrado[i].id}`).on('click', () => {
+            $('#modal-img-producto').fadeIn(() =>{
+                $('#modal-img-producto').css("display","flex")
+                $('#modal-img-producto').html(`<img class="modal-img" src="media/img-productos/img-producto${productosFiltrado[i].id}.jpg" alt="${productosFiltrado[i].nombre} ${productosFiltrado[i].sexo}, color ${productosFiltrado[i].color}">`)
+                $('.modal-img').on('click', () => {
+                    $('#modal-img-producto').html('')
+                    $('#modal-img-producto').fadeOut()
+                })
+            })
+        })
     }
     if(!hayProductos){
         $('#catalogo').append('<li><p class="no-items">Lo sentimos no hay productos con esas especificaciones</p></li>')
@@ -199,6 +216,15 @@ btnValidarCupon.addEventListener('click',(event) => {
 
 $('.abrir-carrito, .cerrar-carrito, .burbuja-cant').on('click', () => {
     $('#modal-carrito').slideToggle()
+})
+
+$('#open-nav').on('click', (event) => {
+    event.preventDefault()
+    $('#menu').toggleClass('activo')
+})
+$('#close-nav').on('click', (event) => {
+    event.preventDefault()
+    $('#menu').toggleClass('activo')
 })
 
 $('.tipo-envio').on('change', () => {

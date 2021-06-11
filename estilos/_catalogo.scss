@@ -34,6 +34,7 @@
             flex-direction: column;
             img{
                 width: 100%;
+                cursor: zoom-in;
             }
             .datos-producto{
                 padding: $espacioParrafos;
@@ -85,5 +86,22 @@
                 margin-right: 0;
             }
         }
+    }
+}
+
+#modal-img-producto{
+    background-color: $colorBaseNegroTransparente;
+    position: fixed;
+    display: none;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 3;
+    align-items: center;
+    img{
+        margin: auto;
+        max-width: 90%;
+        max-height: 90%;
+        cursor: zoom-out;
     }
 }
