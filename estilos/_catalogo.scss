@@ -1,4 +1,6 @@
+// ESTILOS DEL CATÁLOGO
 .catalogo{
+    // ELEMENTOS DEL CATÁLOGO
     .heading-catalogo{
         display: flex;
         justify-content: space-between;
@@ -24,6 +26,7 @@
         display: flex;
         flex-wrap: wrap;
         .producto{
+            // ESTILOS DE LOS PRODUCTOS
             @include card (20%);
             margin-right: 5%;
             margin-bottom: $espacioSeccion;

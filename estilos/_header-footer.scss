@@ -1,4 +1,4 @@
-// HEADER
+// ESTILOS DEL HEADER
 header{
     @include fondoGlassmorph($colorBaseNegroTransparente);
     position: sticky;
@@ -47,6 +47,7 @@ header{
             }
             
             @media only screen and (max-width: 900px){
+                // MOBILE
                 position: fixed;
                 top: 0;
                 left: -100%;
@@ -93,7 +94,7 @@ header{
     }
 }
 
-// FOOTER
+// ESTILOS DEL FOOTER
 footer{
     .informacion, .copyright, .redes{
         display: flex;
