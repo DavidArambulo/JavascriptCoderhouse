@@ -213,6 +213,16 @@ btnValidarCupon.addEventListener('click',(event) => {
     actualizarCarrito()
     inputCupon.value = ''
 })
+$('.tipo-envio').on('change', () => {
+    const value = $('.tipo-envio:checked').val()
+    if(value === 'interior'){
+        esCABA = false
+    }else{
+        esCABA = true
+    }
+    actualizarTotales()
+    actualizarCarrito()
+})
 
 $('.abrir-carrito, .cerrar-carrito, .burbuja-cant').on('click', () => {
     $('#modal-carrito').slideToggle()
@@ -227,15 +237,28 @@ $('#close-nav').on('click', (event) => {
     $('#menu').toggleClass('activo')
 })
 
-$('.tipo-envio').on('change', () => {
-    const value = $('.tipo-envio:checked').val()
-    if(value === 'interior'){
-        esCABA = false
-    }else{
-        esCABA = true
-    }
-    actualizarTotales()
-    actualizarCarrito()
+$('#nav-link-nosotros').on('click', (event) => {
+    event.preventDefault()
+    $('html, body').animate({
+        scrollTop: $('#nosotros').offset().top - 90 // -90 para subir un poco la vista y no lo tape la barra de navegación
+    }, 500);
+    $('#close-nav').trigger('click')
+})
+
+$('#nav-link-retiro').on('click', (event) => {
+    event.preventDefault()
+    $('html, body').animate({
+        scrollTop: $('#retiro').offset().top - 90
+    }, 500);
+    $('#close-nav').trigger('click')
+})
+
+$('#nav-link-productos').on('click', (event) => {
+    event.preventDefault()
+    $('html, body').animate({
+        scrollTop: $('#productos').offset().top - 90
+    }, 500);
+    $('#close-nav').trigger('click')
 })
 
 $(`#filtro-color`).change( (event) => {
