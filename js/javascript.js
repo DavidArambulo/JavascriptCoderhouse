@@ -194,6 +194,7 @@ function mostrarProductos(){
 }
 
 // EVENTOS
+// Eventos del carrito de compras
 vaciar.addEventListener('click',(event) => {
     event.preventDefault()
     Carrito.vaciarCarrito(carrito)
@@ -228,13 +229,14 @@ $('.abrir-carrito, .cerrar-carrito, .burbuja-cant').on('click', () => {
     $('#modal-carrito').slideToggle()
 })
 
+// Eventos de la barra de navegación
 $('#open-nav').on('click', (event) => {
     event.preventDefault()
-    $('#menu').toggleClass('activo')
+    $('#menu').addClass('activo')
 })
 $('#close-nav').on('click', (event) => {
     event.preventDefault()
-    $('#menu').toggleClass('activo')
+    $('#menu').removeClass('activo')
 })
 
 $('#nav-link-nosotros').on('click', (event) => {
@@ -261,6 +263,7 @@ $('#nav-link-productos').on('click', (event) => {
     $('#close-nav').trigger('click')
 })
 
+// Eventos de los filtros
 $(`#filtro-color`).change( (event) => {
     event.preventDefault()
     productosFiltrado = Productos.filtrarProductos(productos)
